@@ -17,9 +17,9 @@ function App() {
         <Route path="/register" element={<Register/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/profile" element={<Profile/>} />
-        <Route path="/products/:main_category_id" element={<Products/>} />
-        <Route path="/products/:main_category_id/:category_id" element={<Products/>} />
-        <Route path="/products/:main_category_id/:category_id/:sub_category_id" element={<Products/>} />
+        <Route path="/products/:main_category_id/:main_category_name" element={<Products/>} />
+        <Route path="/products/:main_category_id/:category_id/:category_name" element={<Products/>} />
+        <Route path="/products/:main_category_id/:category_id/:sub_category_id/:sub_category_name" element={<Products/>} />
         <Route path="/product-detail/:id" element={<ProductDetail/>} />
 
         

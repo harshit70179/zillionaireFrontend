@@ -8,13 +8,13 @@ import Testimonial from './Testimonial'
 import { useGetLowerBannerQuery, useGetMiddleBannerQuery, useGetTopBannerQuery } from '../../../redux/bannerApi'
 
 function Home() {
-    const {data:topBanner}=useGetTopBannerQuery()
-    const {data:middleBanner}=useGetMiddleBannerQuery()
-    const {data:lowerBanner}=useGetLowerBannerQuery()
+    const { data: topBanner } = useGetTopBannerQuery()
+    const { data: middleBanner } = useGetMiddleBannerQuery()
+    const { data: lowerBanner } = useGetLowerBannerQuery()
     return (
         <>
             <Header />
-            <TopBanner topBanner={topBanner}/>
+            <TopBanner topBanner={topBanner} />
             <section className="home_product_item">
                 <div className="container">
                     <h2 className="hadding">Most Loved Styles</h2>
@@ -27,12 +27,12 @@ function Home() {
                     <ProductSlider />
                 </div>
             </section>
-            {middleBanner?.length>0 && <div className="banners">
+            {middleBanner?.length > 0 && <div className="banners">
                 <div className="container">
                     <img src={middleBanner[0]?.image} className="img-fluid" alt="" />
                 </div>
-            </div> }
-           
+            </div>}
+
             <section className="home_product_item">
                 <div className="container">
                     <h2 className="hadding">Just Launched</h2>
@@ -46,11 +46,11 @@ function Home() {
                     <ProductSlider />
                 </div>
             </section>
-            {lowerBanner?.length>0 && <div className="container mb-md-5">
-                <img src={lowerBanner[0]?.image} className="img-fluid" alt=''/>
-            </div> }
-            
-            <Testimonial/>
+            {lowerBanner?.length > 0 && <div className="container mb-md-5">
+                <img src={lowerBanner[0]?.image} className="img-fluid" alt='' />
+            </div>}
+
+            <Testimonial />
             <Footer />
         </>
     )
