@@ -15,3 +15,6 @@ export const getHeaderApi="/get-header"
 //=================== Products ==================
 export const getProductsApi="/get-products"
 export const getProductByIdApi="/get-product-by-id"
+
+//================= Home =================
+export const getHomeproductApi="/get-home-product"

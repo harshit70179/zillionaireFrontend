@@ -1,4 +1,4 @@
-import { getHeaderApi } from "../components/constant/Api";
+import { getHeaderApi, getHomeproductApi } from "../components/constant/Api";
 import { myApi } from "./api";
 
 export const headerApi = myApi.injectEndpoints({
@@ -12,7 +12,16 @@ export const headerApi = myApi.injectEndpoints({
         return response.status ? response?.data ?? [] :[];
       },
     }),
+    getHomeProduct: builder.query({
+      query: () => ({
+        url: getHomeproductApi,
+        method: "GET",
+      }),
+      transformResponse: (response, meta, arg) => {
+        return response.status ? response?.data ?? [] :[];
+      },
+    }),
   }),
 });
 
-export const { useGetHeaderQuery} = headerApi;
+export const { useGetHeaderQuery,useGetHomeProductQuery} = headerApi;

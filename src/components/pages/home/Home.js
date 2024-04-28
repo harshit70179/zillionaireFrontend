@@ -6,11 +6,14 @@ import ProductSlider from './ProductSlider'
 import Explore from './Explore'
 import Testimonial from './Testimonial'
 import { useGetLowerBannerQuery, useGetMiddleBannerQuery, useGetTopBannerQuery } from '../../../redux/bannerApi'
+import { useGetHomeProductQuery } from '../../../redux/headerApi'
 
 function Home() {
+    const {data:homeProduct}=useGetHomeProductQuery()
     const { data: topBanner } = useGetTopBannerQuery()
     const { data: middleBanner } = useGetMiddleBannerQuery()
     const { data: lowerBanner } = useGetLowerBannerQuery()
+    console.log(homeProduct,"homeProduct")
     return (
         <>
             <Header />
