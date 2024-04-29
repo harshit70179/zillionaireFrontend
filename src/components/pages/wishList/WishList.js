@@ -1,54 +1,40 @@
 import React, { useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Header from '../../widgets/Header'
 import Footer from '../../widgets/Footer'
-import { useGetProductsMutation } from '../../../redux/productsApi'
+import { useGetWishListQuery } from '../../../redux/userApi'
 import { useAuth } from '../../../AuthContext'
 
-function Products() {
-    const { main_category_id, category_id, sub_category_id, main_category_name, category_name, sub_category_name } = useParams()
-    const [getProducts, { data }] = useGetProductsMutation()
-    const { wishList, handleWishlist,authenticated } = useAuth();
-    const handleClick = (id) => {
-        handleWishlist(id)
-    }
-
-    useEffect(() => {
-        if (main_category_id || category_id || sub_category_id) {
-            const sendData = {
-                main_category_id,
-                category_id,
-                sub_category_id
-            }
-            getProducts(sendData)
+function WishList() {
+    const { data,refetch } = useGetWishListQuery()
+    const { authenticated } = useAuth();
+    useEffect(()=>{
+        if(authenticated){
+            refetch()
         }
-    }, [main_category_id, category_id, sub_category_id])
-
+    },[authenticated])
     return (
         <>
             <Header />
-            <div className="breadcrumb-area bg_light pt-5 pb-4 text-center">
+            <div className="breadcrumb-area bg_light pt-5 pb-5 text-center">
                 <div className="container">
-                    <h3 className="mb-4">{category_name ? category_name : sub_category_name ? sub_category_name : main_category_name}</h3>
-                    {/* <b>RING IN THE REAL GEMSTONE ENERGY</b> */}
-                    <p>Every piece tells a unique story and every stack is a celebration of you. </p>
+                    <h3 className="mb-4">My WishList</h3>
                 </div>
             </div>
             <section className="home_product_item">
                 <div className="container">
-                    <div className="row">
+                    {authenticated ? <div className="row">
                         {
-                            data?.map((list) => {
+                            data && data?.map((list) => {
                                 let image = JSON.parse(list.images)
                                 let price = JSON.parse(list.price)
                                 return (
                                     <div className="col-md-4 mb-2" key={list.id}>
                                         <div className="shadow1">
-                                            <div className="img_item  heart-img">
-                                                <Link to={`/product-detail/${list.id}`} className=''>
+                                            <div className="img_item  ">
+                                                <Link to={`/product-detail/${list.id}`} className='heart-img'>
                                                     <img src={image[0]} className="img-fluid" alt="" />
                                                 </Link>
-                                                {authenticated && (wishList.includes(list.id) ? <i class="bi bi-suit-heart-fill" onClick={() => { handleClick(list.id) }}></i> : <i className='bi bi-heart' onClick={() => { handleClick(list.id) }}></i>)}
                                             </div>
                                             <div className="product-grid_item p-3 ">
                                                 <span className="product-grid-item__vendor">Ruby &amp; Garnet</span>
@@ -60,7 +46,17 @@ function Products() {
                                 )
                             })
                         }
-                    </div>
+                    </div> : <div className='row'>
+                        <div className='col-md-4'>
+
+                        </div>
+                        <div className='col-md-4'>
+                            <p>Your wishlist has been temporarily saved.<Link to="/register" className='text-d'> Create an account</Link> or <Link to="/login" className='text-d'> sign</Link>  in to save it permanently.</p>
+                        </div>
+                        <div className='col-md-4'>
+
+                        </div>
+                    </div>}
                 </div>
             </section>
             <Footer />
@@ -68,4 +64,4 @@ function Products() {
     )
 }
 
-export default Products
+export default WishList

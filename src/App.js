@@ -7,6 +7,7 @@ import Home from "./components/pages/home/Home";
 import Products from "./components/pages/products/Products";
 import ProductDetail from "./components/pages/productDetail/ProductDetail";
 import Profile from "./components/pages/profile/Profile";
+import WishList from "./components/pages/wishList/WishList";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Route path="/products/:main_category_id/:category_id/:category_name" element={<Products/>} />
         <Route path="/products/:main_category_id/:category_id/:sub_category_id/:sub_category_name" element={<Products/>} />
         <Route path="/product-detail/:id" element={<ProductDetail/>} />
-
+        <Route path="/wish-list" element={<WishList/>} />
         
       
         </Routes>

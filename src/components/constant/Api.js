@@ -3,6 +3,9 @@ import { baseUrl } from "./BaseUrl";
 export const loginApi=baseUrl+"/user-login"
 export const registerApi=baseUrl+"/user-register"
 export const changePasswordApi=baseUrl+"/user-change-password"
+export const getUserDetailApi="/get-user-detail"
+export const getWishListApi="/get-wish-list"
+export const addWishListApi="/add-wish-list"
 
 //============= Banner ====================
 export const getTopBannerApi="/get-top-banner"

@@ -1285,6 +1285,29 @@ section {
   color: #fff;
 }
 
+.heart-img{
+  position: relative;
+}
+
+.heart-img i{
+  position: absolute;
+  right: 18px;
+  z-index: 1000;
+  font-size: 24px;
+  color: #656464;
+}
+
+.heart-img i:hover{
+  cursor: pointer;
+}
+.heart-img .bi-suit-heart-fill{
+  color: #dbb162;
+}
+
+.text-d{
+  text-decoration: underline;
+}
+
 .breadcrumb-wrap {
   padding: 24px 0;
   text-align: center;

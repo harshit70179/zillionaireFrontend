@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 import { useAuth } from '../../AuthContext'
 
 function Login() {
-  const { login } = useAuth();
+  const { login,handleSetWishlist } = useAuth();
   const navigate = useNavigate()
   const [disable, setDisable] = useState(false);
   const [loginField, setLoginField] = useState({
@@ -61,6 +61,8 @@ function Login() {
     if (result.status) {
       let token = result.authtoken;
       localStorage.setItem("jwtToken", token);
+      localStorage.setItem("wishList",result.wish_list)
+      handleSetWishlist(JSON.parse(result.wish_list))
       toast.dismiss();
       toast.success(result.message);
       setTimeout(function () {

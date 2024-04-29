@@ -1,18 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../AuthContext';
 import { useGetHeaderQuery } from '../../redux/headerApi';
 import { useDispatch, useSelector } from 'react-redux';
 import {increament, decreament} from '../../redux/cartSlice';
+import { useSetWishListMutation } from '../../redux/userApi';
 
 function Header() {
     const dispatch = useDispatch();
     const { item: products, totalamount,count } = useSelector((state) => state.cart);
     const { data } = useGetHeaderQuery()
-    const { authenticated, logout } = useAuth();
+    const { authenticated, logout,wishList } = useAuth();
+    const [setWishList]=useSetWishListMutation()
     const navigate = useNavigate()
     const logOut = () => {
-        localStorage.clear()
+        localStorage.removeItem("jwtToken")
         navigate("/login")
         logout();
     }
@@ -24,6 +26,12 @@ function Header() {
     const decrement = (id) => {
         dispatch(decreament(id));
     };
+
+    useEffect(()=>{
+        if(wishList && authenticated){
+            setWishList({wish_list:JSON.stringify(wishList)})
+        }
+    },[wishList])
 
     return (
         <>
@@ -84,7 +92,7 @@ function Header() {
                             <Link to="/"> <i className="bi bi-search ifw20"></i></Link>
                         </div>
                         <div className="header_right_item ms-3 ">
-                            <Link to="/"> <i className="bi bi-heart ifw20"></i></Link>
+                            <Link to="/wish-list"> <i className="bi bi-heart ifw20"></i></Link>
 
                         </div>
                         <div className="header_right_item ms-3 dropdown">

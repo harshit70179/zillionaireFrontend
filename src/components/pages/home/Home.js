@@ -7,52 +7,63 @@ import Explore from './Explore'
 import Testimonial from './Testimonial'
 import { useGetLowerBannerQuery, useGetMiddleBannerQuery, useGetTopBannerQuery } from '../../../redux/bannerApi'
 import { useGetHomeProductQuery } from '../../../redux/headerApi'
+import { useAuth } from '../../../AuthContext'
 
 function Home() {
-    const {data:homeProduct}=useGetHomeProductQuery()
+    const { data: homeProduct } = useGetHomeProductQuery()
     const { data: topBanner } = useGetTopBannerQuery()
     const { data: middleBanner } = useGetMiddleBannerQuery()
     const { data: lowerBanner } = useGetLowerBannerQuery()
-    console.log(homeProduct,"homeProduct")
+
     return (
         <>
             <Header />
             <TopBanner topBanner={topBanner} />
-            <section className="home_product_item">
+            {homeProduct && homeProduct[0] ? <section className="home_product_item">
                 <div className="container">
-                    <h2 className="hadding">Most Loved Styles</h2>
-                    <ProductSlider />
+                    <h2 className="hadding">{homeProduct[0].title}</h2>
+                    <ProductSlider products={homeProduct[0].products}/>
                 </div>
-            </section>
-            <section className="home_product_item">
+            </section> : ""}
+            {homeProduct && homeProduct[1] ? <section className="home_product_item">
                 <div className="container">
-                    <h2 className="hadding">Pre-Order: Crystal Fusion at 15% off</h2>
-                    <ProductSlider />
+                    <h2 className="hadding">{homeProduct[1].title}</h2>
+                    <ProductSlider products={homeProduct[1].products} />
                 </div>
-            </section>
+            </section> : ""}
             {middleBanner?.length > 0 && <div className="banners">
                 <div className="container">
                     <img src={middleBanner[0]?.image} className="img-fluid" alt="" />
                 </div>
             </div>}
 
-            <section className="home_product_item">
+            {homeProduct && homeProduct[2] ? <section className="home_product_item">
                 <div className="container">
-                    <h2 className="hadding">Just Launched</h2>
-                    <ProductSlider />
+                    <h2 className="hadding">{homeProduct[2].title}</h2>
+                    <ProductSlider products={homeProduct[2].products} />
                 </div>
-            </section>
+            </section> : ""}
             <Explore />
-            <section className="home_product_item">
+            {homeProduct && homeProduct[3] ? <section className="home_product_item">
                 <div className="container">
-                    <h2 className="hadding">Hottest Stars: Zodiac Collection</h2>
-                    <ProductSlider />
+                    <h2 className="hadding">{homeProduct[3].title}</h2>
+                    <ProductSlider products={homeProduct[3].products} />
                 </div>
-            </section>
+            </section> : ""}
             {lowerBanner?.length > 0 && <div className="container mb-md-5">
                 <img src={lowerBanner[0]?.image} className="img-fluid" alt='' />
             </div>}
-
+            {homeProduct && homeProduct.length > 3 ?
+                homeProduct.slice(4, 7)?.map((list) => {
+                    return (
+                        <section className="home_product_item">
+                            <div className="container">
+                                <h2 className="hadding">{list.title}</h2>
+                                <ProductSlider products={list.products} />
+                            </div>
+                        </section>
+                    )
+                }) : ""}
             <Testimonial />
             <Footer />
         </>
