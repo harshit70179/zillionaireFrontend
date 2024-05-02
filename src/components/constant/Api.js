@@ -21,3 +21,7 @@ export const getProductByIdApi="/get-product-by-id"
 
 //================= Home =================
 export const getHomeproductApi="/get-home-product"
+
+//==================== FAQ =================
+export const getFAqApi="/get-faq"
+export const getSitePolicyApi="/get-sitepolicy"

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TopBanner from './TopBanner'
 import Header from '../../widgets/Header'
 import Footer from '../../widgets/Footer'
@@ -7,14 +7,21 @@ import Explore from './Explore'
 import Testimonial from './Testimonial'
 import { useGetLowerBannerQuery, useGetMiddleBannerQuery, useGetTopBannerQuery } from '../../../redux/bannerApi'
 import { useGetHomeProductQuery } from '../../../redux/headerApi'
-import { useAuth } from '../../../AuthContext'
 
 function Home() {
     const { data: homeProduct } = useGetHomeProductQuery()
     const { data: topBanner } = useGetTopBannerQuery()
     const { data: middleBanner } = useGetMiddleBannerQuery()
     const { data: lowerBanner } = useGetLowerBannerQuery()
-
+    useEffect(()=>{
+        scrollTop()
+    },[])
+    const scrollTop=()=>{
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+      });
+        }
     return (
         <>
             <Header />

@@ -26,14 +26,10 @@ function Footer() {
                         <div className="col-lg-3 col-md-6 footer-links">
                             <h4>LET US HELP YOU</h4>
                             <ul>
-                                <li> <Link to="/">WHOLESALE</Link></li>
                                 <li> <Link to="/">FAQ</Link></li>
-                                <li> <Link to="/">SHIPPING</Link></li>
-                                <li> <Link to="/">RETURNS</Link></li>
-                                <li> <Link to="/">RING SIZE GUIDE</Link></li>
-                                <li> <Link to="/">HELP CENTER</Link></li>
-                                <li> <Link to="/">CONTACT US</Link></li>
-                                <li> <Link to="/">TERMS AND CONDITIONS</Link></li>
+                                <li> <Link to="/shipping">SHIPPING</Link></li>
+                                <li> <Link to="/return-policy">RETURNS</Link></li>
+                                <li> <Link to="/tac">TERMS AND CONDITIONS</Link></li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 footer-links">
