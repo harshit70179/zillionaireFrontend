@@ -1427,6 +1427,25 @@ section {
   color: #7a7a7a;
 }
 
+.cart-clear{
+  text-align: end;
+}
+.cart-clear button{
+  background: none;
+  border: 1px solid #d2ac5b;
+  border-radius: 8%;
+}
+
+.cart-clear button:hover{
+ cursor: pointer;
+ background: #d2ac5b;
+ color: #fff;
+}
+.price-box button{
+  background: none;
+  border: none;
+}
+
 .search_input {
   outline: none !important;
   width: 170px;

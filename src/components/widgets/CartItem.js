@@ -1,6 +1,7 @@
 import React from 'react';
 
-function CartItem({ products, totalamount, decrement, increment,authenticated }) {
+function CartItem({ products, totalamount, decrement, increment,authenticated,clearCart,handleRemove }) {
+
     return (
         <div className="modal mt-0  cart_popop" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -13,6 +14,9 @@ function CartItem({ products, totalamount, decrement, increment,authenticated })
                         <p className="text-wrap text-center"> ALMOST THERE! ADD $250.00 TO RECEIVE FREE SHIPPING!
                         </p>
                         <hr />
+                       {products?.length>0 && <div className='cart-clear'>
+                            <button onClick={clearCart} data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-trash"></i> Clear</button>
+                        </div>} 
                         {products?.map((list) => {
 
                             return (
@@ -29,7 +33,10 @@ function CartItem({ products, totalamount, decrement, increment,authenticated })
                                             </div>
                                             <div className='price-box'>
                                                 <span className="price-regular"> ${list.price}</span>
-
+                                                <button   title="Delete" className="tt-trash" onClick={()=>handleRemove(list.id)}>
+                            
+                                                <i class="bi bi-x-lg"></i>
+                        </button>
                                             </div>
                                         </div>
                                     </div>

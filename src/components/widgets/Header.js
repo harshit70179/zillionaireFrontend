@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../AuthContext';
 import { useGetHeaderQuery } from '../../redux/headerApi';
 import { useDispatch, useSelector } from 'react-redux';
-import {increament, decreament} from '../../redux/cartSlice';
+import {increament, decreament,removeAll,remove,total} from '../../redux/cartSlice';
 import { useSetWishListMutation } from '../../redux/userApi';
 import CartItem from './CartItem';
 
@@ -26,6 +26,15 @@ function Header() {
     
     const decrement = (id) => {
         dispatch(decreament(id));
+    };
+
+    const clearCart=()=>{
+        dispatch(removeAll())
+    }
+
+    const handleRemove = (productId) => {
+        dispatch(remove(productId));
+        dispatch(total())
     };
 
     useEffect(()=>{
@@ -116,7 +125,7 @@ function Header() {
                 </div>
             </header>
 
-           <CartItem products={products} totalamount={totalamount} decrement={decrement} increment={increment} authenticated={authenticated}/>
+           <CartItem products={products} totalamount={totalamount} decrement={decrement} increment={increment} authenticated={authenticated} clearCart={clearCart} handleRemove={handleRemove}/>
         </>
     )
 }

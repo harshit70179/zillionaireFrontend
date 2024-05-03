@@ -1,22 +1,48 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useSetOrderMutation } from '../../../redux/orderApi';
 import { toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { removeAll } from '../../../redux/cartSlice';
+import { checkoutValid } from '../../validations/CheckoutValid';
+import { useAuth } from '../../../AuthContext';
 
 function CheckOut() {
     const navigate = useNavigate()
+    const { authenticated } = useAuth();
     const dispatch = useDispatch();
     const [setOrder] = useSetOrderMutation()
+    const [disable, setDisable] = useState(false);
     const { item: products, totalamount, grandtotal, count } = useSelector((state) => state.cart);
     const [infoField, setInfoField] = useState({ email: "", firstName: "", lastName: "", mobileNumber: "", address: "" })
+    const [infoFieldErr, setInfoFieldErr] = useState({ email: "", firstName: "", lastName: "", mobileNumber: "", address: "" })
+
+    useEffect(() => {
+        if (products.length === 0 && !authenticated) {
+            navigate("/")
+        }
+    }, [products])
+
     const handleChange = (e) => {
         const { name, value } = e.target
         setInfoField({ ...infoField, [name]: value })
+        let checkInfo = checkoutValid(name, value);
+        setInfoFieldErr({ ...infoFieldErr, [name]: checkInfo });
     }
     const handleSubmit = (e) => {
         e.preventDefault()
+        setDisable(true);
+
+        setTimeout(() => {
+            setDisable(false);
+        }, 3000);
+        for (let key in infoField) {
+            let checkInfo = checkoutValid(key, infoField[key]);
+            setInfoFieldErr({ ...infoFieldErr, [key]: checkInfo });
+            if (checkInfo !== "") {
+                return false;
+            }
+        }
         const data = {
             email: infoField.email,
             first_name: infoField.firstName,
@@ -27,14 +53,15 @@ function CheckOut() {
             grand_total: grandtotal,
             discount: 0,
             shipping: 0,
-            product_items: JSON.stringify(products)
+            product_items: JSON.stringify(products),
+            total_item:count
         }
         setOrder(data).then((result) => {
             if (result.data.status) {
+                navigate("/profile", { replace: true })
                 toast.dismiss();
                 toast.success(result.data.message);
                 dispatch(removeAll())
-                navigate("/profile", { replace: true })
             }
             else {
                 toast.dismiss();
@@ -52,22 +79,34 @@ function CheckOut() {
                         <form onSubmit={handleSubmit}>
                             <div className='row'>
                                 <div className='col-12 mb-3'>
-                                    <input type='text' name='email' placeholder='Email' onChange={handleChange} className='form-control' />
+                                    <h6 className='mb-3'><b>CONTACT</b></h6>
+                                    <input type='text' name='email' placeholder='Email *' onChange={handleChange} className='form-control' />
+                                    <span className='text-danger'>{infoFieldErr.email}</span>
+                                </div>
+                                <div className='col-12'>
+                                    <h6 className='mb-3 mt-4'><b>SHIPPING ADDRESS</b></h6>
                                 </div>
                                 <div className='col-md-6 mb-3'>
-                                    <input type='text' name='firstName' placeholder='First Name' onChange={handleChange} className='form-control' />
+                                    <input type='text' name='firstName' placeholder='First name *' onChange={handleChange} className='form-control' />
+                                    <span className='text-danger'>{infoFieldErr.firstName}</span>
                                 </div>
                                 <div className='col-md-6 mb-3'>
-                                    <input type='text' name="lastName" placeholder='Last Name' onChange={handleChange} className='form-control' />
+                                    <input type='text' name="lastName" placeholder='Last name *' onChange={handleChange} className='form-control' />
+                                    <span className='text-danger'>{infoFieldErr.lastName}</span>
                                 </div>
                                 <div className='col-12 mb-3'>
-                                    <input type='text' name='mobileNumber' placeholder='Phone Number' onChange={handleChange} className='form-control' />
+                                    <input type='text' name='mobileNumber' placeholder='Phone number *' onChange={handleChange} className='form-control' />
+                                    <span className='text-danger'>{infoFieldErr.mobileNumber}</span>
                                 </div>
                                 <div className='col-12 mb-3'>
-                                    <input type='text' name='address' placeholder='Address' onChange={handleChange} className='form-control' />
+                                    <input type='text' name='address' placeholder='Address *' onChange={handleChange} className='form-control' />
+                                    <span className='text-danger'>{infoFieldErr.address}</span>
                                 </div>
-                                <div className='col-12 mb-3'>
-                                    <button type='submit' className='btn btn-primary'>Submit</button>
+                                <div className='col-md-6 mb-3'>
+                                    <Link to="/cart"> <i class="bi bi-arrow-left-short"></i> RETURN TO CART</Link>
+                                </div>
+                                <div className='col-md-6 mb-3'>
+                                    <button type='submit' className='btn btn-primary w-100' disabled={disable}>SUBMIT</button>
                                 </div>
                             </div>
                         </form>
