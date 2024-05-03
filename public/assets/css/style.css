@@ -1445,7 +1445,13 @@ section {
   background: none;
   border: none;
 }
-
+.checkout-submit button{
+  font-size: 20px;
+}
+.checkout-footer-link a{
+  color: #8c8c8c;
+  font-size: 13px;
+}
 .search_input {
   outline: none !important;
   width: 170px;

@@ -15,6 +15,7 @@ import SubCategoryProduct from "./components/pages/products/SubCategoryProduct";
 import PrivacyPolicy from "./components/pages/sitePolicy/PrivacyPolicy";
 import CheckOut from "./components/pages/checkout/CheckOut";
 import Faqs from "./components/pages/sitePolicy/Faqs";
+import Cart from "./components/pages/cart/Cart";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
         <Route path="/faq" element={<Faqs/>} />
         <Route path="/checkout" element={<CheckOut/>} />
+        <Route path="/cart" element={<Cart/>} />
         </Routes>
       </Router>
       <ToastContainer

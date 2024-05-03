@@ -102,14 +102,20 @@ function CheckOut() {
                                     <input type='text' name='address' placeholder='Address *' onChange={handleChange} className='form-control' />
                                     <span className='text-danger'>{infoFieldErr.address}</span>
                                 </div>
-                                <div className='col-md-6 mb-3'>
+                                <div className='col-md-6 mb-3 mt-2 d-flex align-items-center'>
                                     <Link to="/cart"> <i class="bi bi-arrow-left-short"></i> RETURN TO CART</Link>
                                 </div>
-                                <div className='col-md-6 mb-3'>
+                                <div className='col-md-6 mb-3 mt-2 checkout-submit'>
                                     <button type='submit' className='btn btn-primary w-100' disabled={disable}>SUBMIT</button>
                                 </div>
                             </div>
                         </form>
+                        <hr/>
+                        <div className='mt-3 checkout-footer-link'>
+                          <Link to="/return-policy" className='ms-1'>Return Policy</Link>
+                          <Link to="/privacy-policy" className='ms-3'>Privacy Policy</Link>
+                          <Link to="/tac" className='ms-3'>Term and Conditions</Link>
+                        </div>
                     </div>
                 </div>
                 <div className='col-md-6 check-cart'>
