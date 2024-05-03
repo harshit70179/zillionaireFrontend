@@ -1,8 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import FooterShip from './FooterShip'
+import { useGetFooterCollectionQuery } from '../../redux/sitepolicyApi'
 
 function Footer() {
+    const {data}=useGetFooterCollectionQuery()
     return (
         <>
         <FooterShip/>
@@ -26,22 +28,21 @@ function Footer() {
                         <div className="col-lg-3 col-md-6 footer-links">
                             <h4>LET US HELP YOU</h4>
                             <ul>
-                                <li> <Link to="/">FAQ</Link></li>
+                                <li> <Link to="/faq">FAQ</Link></li>
                                 <li> <Link to="/shipping">SHIPPING</Link></li>
                                 <li> <Link to="/return-policy">RETURNS</Link></li>
+                                <li> <Link to="/privacy-policy">PRIVACY POLICY</Link></li>
                                 <li> <Link to="/tac">TERMS AND CONDITIONS</Link></li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 footer-links">
                             <h4>COLLECTIONS</h4>
                             <ul>
-                                <li> <Link to="/"> SHOP ALL</Link></li>
-                                <li> <Link to="/"> RINGS</Link></li>
-                                <li> <Link to="/"> BETTER TOGETHER BUNDLES</Link></li>
-                                <li> <Link to="/">MOONSTONE JEWELRY </Link></li>
-                                <li> <Link to="/"> NECKLACES</Link></li>
-                                <li> <Link to="/"> EARRINGS</Link></li>
-                                <li> <Link to="/">SHOP OUR INSTAGRAM </Link></li>
+                            {data && data?.map((list)=>{
+                                    return (
+                                        <li key={list.id}> <Link to={`/sub-category-products/${list.id}/${list.name}`}>{list.name}</Link></li>
+                                    )
+                                })}
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-6 footer-info">
@@ -68,7 +69,7 @@ function Footer() {
             <div className="bg_light ">
                 <div className="container p-2 ">
                     <div className="copyright ttu">
-                        © 2024 zillionairejewels
+                        <Link to="/privacy-policy">Privacy Policy</Link> © 2024 zillionaire jewels
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import {getFAqApi, getSitePolicyApi } from "../components/constant/Api";
+import { getFAqApi, getFooterCollectionApi, getSitePolicyApi } from "../components/constant/Api";
 import { myApi } from "./api";
 
 export const sitepolicyApi = myApi.injectEndpoints({
@@ -9,19 +9,28 @@ export const sitepolicyApi = myApi.injectEndpoints({
         method: "GET",
       }),
       transformResponse: (response, meta, arg) => {
-        return response.status ? response?.data ?? [] :[];
+        return response.status ? response?.data ?? [] : [];
       },
     }),
     getFaq: builder.query({
-        query: () => ({
-          url: getFAqApi,
-          method: "GET",
-        }),
-        transformResponse: (response, meta, arg) => {
-          return response.status ? response?.data ?? [] :[];
-        },
+      query: () => ({
+        url: getFAqApi,
+        method: "GET",
       }),
+      transformResponse: (response, meta, arg) => {
+        return response.status ? response?.data ?? [] : [];
+      },
+    }),
+    getFooterCollection: builder.query({
+      query: () => ({
+        url: getFooterCollectionApi,
+        method: "GET",
+      }),
+      transformResponse: (response, meta, arg) => {
+        return response.status ? response?.data ?? [] : [];
+      },
+    }),
   }),
 });
 
-export const { useGetFaqQuery,useGetSitePolicyQuery} = sitepolicyApi;
+export const { useGetFaqQuery, useGetSitePolicyQuery,useGetFooterCollectionQuery } = sitepolicyApi;

@@ -4,11 +4,13 @@ import Footer from '../../widgets/Footer'
 import { useGetUserDetailQuery } from '../../../redux/userApi'
 import { useAuth } from '../../../AuthContext'
 import { useNavigate } from 'react-router-dom'
+import { useGetOrderQuery } from '../../../redux/orderApi'
 
 function Profile() {
     const navigate=useNavigate()
     const { authenticated } = useAuth();
     const {data}=useGetUserDetailQuery()
+    const {data:orderHistory}=useGetOrderQuery()
 
    useEffect(()=>{
      if(!authenticated){
@@ -41,27 +43,35 @@ function Profile() {
                                 <table className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
+                                            <th>Order Id</th>
                                             <th>Firstname</th>
                                             <th>Lastname</th>
                                             <th>Email</th>
+                                            <th>Subtotal</th>
+                                            <th>Total</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>John</td>
-                                            <td>Doe</td>
-                                            <td>john@example.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mary</td>
-                                            <td>Moe</td>
-                                            <td>mary@example.com</td>
-                                        </tr>
-                                        <tr>
-                                            <td>July</td>
-                                            <td>Dooley</td>
-                                            <td>july@example.com</td>
-                                        </tr>
+                                        {
+                                            orderHistory?.map((list)=>{
+                                                return (
+                                                    <tr key={list.id}>
+                                                         <td>{list.order_id}</td>
+                                                    <td>{list.first_name}</td>
+                                                    <td>{list.last_name}</td>
+                                                    <td>{list.email}</td>
+                                                    <td>{list.total}</td>
+                                                    <td>{list.grand_total}</td>
+                                                    <td>{list.status}</td>
+                                                    <td><button className='btn btn-primary'>View</button></td>
+                                                </tr>
+                                                )
+                                            })
+                                        }
+                                       
+                                       
                                     </tbody>
                                 </table>
                             </div>

@@ -1369,6 +1369,63 @@ section {
 .cart_popop.show .modal-dialog {
   transform: inherit;
 }
+.cart_popop .modal-body{
+  overflow: auto;
+}
+
+.check-cart{
+  background-color: #d8d8d845;
+  padding: 85px 190px 45px 90px;
+}
+.check-info{
+  padding: 64px 40px 28px 100px;
+}
+
+.check-cart-item{
+  justify-content: space-around;
+  align-items: center;
+}
+.check-cart-item h6{
+ margin-bottom: 0;
+}
+.check-cart-item p{
+  color: #8f8f8f;
+  font-size: 12px;
+}
+.check-cart-div{
+  align-items: center;
+}
+.check-cart-div .cart-img{
+  position: relative;
+}
+.check-cart-div .cart-img span{
+  position: absolute;
+    background: #000;
+    color: #fff;
+    border-radius: 100%;
+    width: 22%;
+    height: 24%;
+    font-size: 14px;
+    top: -10px;
+    right: -10px;
+    text-align: center;
+}
+.check-cart-div .cart-img img{
+  border: 1px solid #afafaf;
+}
+.check-cart-inner{
+  border-bottom: 3px solid #9f9f9f;
+}
+.check-sub-total .sub-total{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px 0px 10px;
+  border-bottom: 2px solid #adadad;
+
+}
+.check-sub-total .sub-total p{
+  color: #7a7a7a;
+}
 
 .search_input {
   outline: none !important;

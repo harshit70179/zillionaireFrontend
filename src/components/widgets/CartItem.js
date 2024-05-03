@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 
-function CartItem({ products, totalamount, decrement, increment }) {
+function CartItem({ products, totalamount, decrement, increment,authenticated }) {
     return (
         <div className="modal mt-0  cart_popop" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -49,7 +48,9 @@ function CartItem({ products, totalamount, decrement, increment }) {
                         <hr />
                     </div>
                     <div className="bg_light p-4">
-                        <Link className="btn p-3 ttu fw700 w100" to="/">Checkout</Link>
+                        {
+                            products.length===0?<button className="btn p-3 ttu fw700 w100"  disabled>Checkout</button>:<a className="btn p-3 ttu fw700 w100" href={authenticated?"/checkout":"/login"} >Checkout</a>
+                        }
                     </div>
                 </div>
             </div>

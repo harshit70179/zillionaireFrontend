@@ -25,3 +25,8 @@ export const getHomeproductApi="/get-home-product"
 //==================== FAQ =================
 export const getFAqApi="/get-faq"
 export const getSitePolicyApi="/get-sitepolicy"
+export const getFooterCollectionApi="/footer-collection"
+
+//================== Order ==============
+export const addOrderApi="/add-order"
+export const getOrderApi="/get-order"

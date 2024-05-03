@@ -116,7 +116,7 @@ function Header() {
                 </div>
             </header>
 
-           <CartItem products={products} totalamount={totalamount} decrement={decrement} increment={increment}/>
+           <CartItem products={products} totalamount={totalamount} decrement={decrement} increment={increment} authenticated={authenticated}/>
         </>
     )
 }

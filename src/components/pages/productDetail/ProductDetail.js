@@ -39,9 +39,11 @@ function ProductDetail() {
             let size = price?.map((list) => list.size)
             let finishing = price?.map((list) => list.finishingCategory)
             if(size[0]){
+                size = [...new Set(size)];
                 setSizeArr(size)
             }
             if(finishing[0]){
+                finishing = [...new Set(finishing)];
                 setFinishingCategoryArr(finishing)
             }
             setSize(size[0])
@@ -53,7 +55,7 @@ function ProductDetail() {
     useEffect(() => {
         if (size && finishing) {
             let filterPrice = priceArr.filter((list) => { return list.finishingCategory === finishing && list.size === size })
-            setPrice(parseFloat(filterPrice[0]?.price))
+            setPrice(parseFloat(filterPrice[0]?filterPrice[0]?.price:0))
         }
         else {
             setPrice(parseFloat(priceArr[0]?.price))
@@ -184,7 +186,7 @@ function ProductDetail() {
                                                 <Link to="/" className="text-m">22 Reviews</Link>
                                             </div>
                                             <div className="price-box">
-                                                <span className="price-regular">${price}</span>
+                                               {price>0?<span className="price-regular">${price}</span>:""} 
                                                 {/* <span className="price-old"><del>$90.00</del></span> */}
                                             </div>
                                             {/* <h5 className="offer-text mt-3"><strong>Hurry up</strong>! offer ends in:</h5>
@@ -194,17 +196,17 @@ function ProductDetail() {
                                                 <span>200 in stock</span>
                                             </div> */}
                                             <div className='d-flex'>
-                                                <div className="pro-size">
+                                            {sizeArr.length>0 &&  <div className="pro-size">
                                                     <span className="option-title">size :</span>
                                                     <select className="nice-select" onChange={handleChange} name="size" value={size}>
-                                                        {sizeArr?.map((list) => {
+                                                        { sizeArr?.map((list) => {
                                                             return (
                                                                 <option value={list}>{list}</option>
                                                             )
                                                         })}
                                                     </select>
-                                                </div>
-                                                <div className="pro-size ms-3">
+                                                </div>}
+                                                <div className={`pro-size ${sizeArr.length>0?"ms-3":""}`}>
                                                     <span className="option-title">finishing :</span>
                                                     <select className="nice-select" onChange={handleChange} name="finishing" value={finishing}>
                                                         {finishingCategoryArr?.map((list) => {
@@ -224,7 +226,7 @@ function ProductDetail() {
 
                                             <p className="pro-desc">{data && data[0]?.short_description}</p>
                                             <div className="action_link mt-3">
-                                                <button className="btn btn-cart2" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={handleAdd}>Add to cart</button>
+                                                <button className="btn btn-cart2" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={handleAdd} disabled={price===0}>Add to cart</button>
                                             </div>
                                         </div>
                                     </div>

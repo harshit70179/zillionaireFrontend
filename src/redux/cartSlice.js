@@ -3,12 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        item:localStorage.getItem("cartItem")?JSON.parse(localStorage.getItem("cartItem")): [],
-        totalamount: localStorage.getItem("totalamount")?localStorage.getItem("totalamount"): 0,
+        item: localStorage.getItem("cartItem") ? JSON.parse(localStorage.getItem("cartItem")) : [],
+        totalamount: localStorage.getItem("totalamount") ? localStorage.getItem("totalamount") : 0,
         discount: 15,
         totaldiscount: 0,
-        grandtotal: 0,
-        count:localStorage.getItem("count")?localStorage.getItem("count"): 0,
+        grandtotal: localStorage.getItem("grandtotal") ? localStorage.getItem("grandtotal") : 0,
+        count: localStorage.getItem("count") ? localStorage.getItem("count") : 0,
         discountcoupon: "hello",
     },
 
@@ -21,13 +21,20 @@ const cartSlice = createSlice({
             else {
                 state.item.push(action.payload);
             }
-            localStorage.setItem("cartItem",JSON.stringify( state.item))
+            localStorage.setItem("cartItem", JSON.stringify(state.item))
         },
         remove(state, action) {
 
             return { ...state, item: state.item.filter((item) => item.id !== action.payload) };
         },
-
+        removeAll(state, action) {
+            console.log("removeAll")
+            localStorage.removeItem("count")
+            localStorage.removeItem("cartItem")
+            localStorage.removeItem("totalamount")
+            localStorage.removeItem("grandtotal")
+            return { ...state, item: [], totalamount: 0, grandtotal: 0, count: 0 };
+        },
         increament(state, action) {
             let updatecart = state.item.map((cur) => {
                 if (cur.id === action.payload) {
@@ -51,9 +58,10 @@ const cartSlice = createSlice({
             })
 
             // console.log(updatecart)
-            localStorage.setItem("cartItem",JSON.stringify( updatecart))
-            localStorage.setItem("count",noProduct)
-            localStorage.setItem("totalamount",sum)
+            localStorage.setItem("cartItem", JSON.stringify(updatecart))
+            localStorage.setItem("count", noProduct)
+            localStorage.setItem("totalamount", sum)
+            localStorage.setItem("grandtotal", sum)
             return { ...state, item: updatecart, totalamount: sum, grandtotal: sum, count: noProduct }
         },
         decreament(state, action) {
@@ -78,9 +86,10 @@ const cartSlice = createSlice({
 
             })
             // console.log(updatecart)
-            localStorage.setItem("cartItem",JSON.stringify( updatecart))
-            localStorage.setItem("count",noProduct)
-            localStorage.setItem("totalamount",sum)
+            localStorage.setItem("cartItem", JSON.stringify(updatecart))
+            localStorage.setItem("count", noProduct)
+            localStorage.setItem("totalamount", sum)
+            localStorage.setItem("grandtotal", sum)
             return { ...state, item: updatecart, totalamount: sum, grandtotal: sum, count: noProduct }
         },
         total(state, action) {
@@ -97,8 +106,9 @@ const cartSlice = createSlice({
                 }
                 return sum
             })
-            localStorage.setItem("count",noProduct)
-            localStorage.setItem("totalamount",sum)
+            localStorage.setItem("count", noProduct)
+            localStorage.setItem("totalamount", sum)
+            localStorage.setItem("grandtotal", sum)
             return { ...state, totalamount: sum, grandtotal: sum, count: noProduct }
         },
         grandtotals(state, action) {
@@ -115,5 +125,5 @@ const cartSlice = createSlice({
     },
 });
 
-export const { add, remove, increament, decreament, total, grandtotals, finddiscount } = cartSlice.actions;
+export const { add, remove, increament, decreament, total, grandtotals, finddiscount,removeAll } = cartSlice.actions;
 export default cartSlice.reducer;
