@@ -1452,6 +1452,38 @@ section {
   color: #8c8c8c;
   font-size: 13px;
 }
+.tt-product-img img{
+ width: 100px;
+}
+.tt-shopcart-table-02 table tr{
+  border-bottom: 1px solid #cecece;
+}
+.tt-shopcart-table-02 table tr h4{
+ margin: 0;
+}
+.tt-shopcart-table-02 table tr p{
+  color: #8c8c8c;
+  font-size: 14px;
+ }
+
+.tt-shopcart-table-02 table {
+  margin-bottom: 30px;
+}
+.tt-shopcart-btn{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cart-sub{
+  border: 1px solid #dcdcdc;
+  padding: 11px;
+  border-radius: 10px;
+}
+.cart-sub .sub-total{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .search_input {
   outline: none !important;
   width: 170px;

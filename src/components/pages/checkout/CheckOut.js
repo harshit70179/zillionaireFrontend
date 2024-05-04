@@ -18,7 +18,7 @@ function CheckOut() {
     const [infoFieldErr, setInfoFieldErr] = useState({ email: "", firstName: "", lastName: "", mobileNumber: "", address: "" })
 
     useEffect(() => {
-        if (products.length === 0 && !authenticated) {
+        if (products.length === 0 || !authenticated) {
             navigate("/")
         }
     }, [products])
