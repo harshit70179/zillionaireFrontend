@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import FooterShip from './FooterShip'
-import { useGetFooterCollectionQuery } from '../../redux/sitepolicyApi'
+import { useGetFooterCollectionQuery, useGetSocialMediaQuery } from '../../redux/sitepolicyApi'
 
 function Footer() {
     const {data}=useGetFooterCollectionQuery()
+    const {data:social}=useGetSocialMediaQuery()
     return (
         <>
         <FooterShip/>
@@ -56,11 +57,11 @@ function Footer() {
                                 <strong>Contact Us </strong> info@example.com
                             </p>
                             <div className="social-links mt-4">
-                                <Link to="/" className="twitter"><i className="bi bi-twitter"></i></Link>
-                                <Link to="/" className="facebook"><i className="bi bi-facebook"></i></Link>
-                                <Link to="/" className="instagram"><i className="bi bi-instagram"></i></Link>
-                                <Link to="/" className="google-plus"><i className="bi bi-skype"></i></Link>
-                                <Link to="/" className="linkedin"><i className="bi bi-linkedin"></i></Link>
+                                {social?.map((list)=>{
+                                    return (
+                                          <Link to={list.url} className="twitter" key={list.id}><i className={list.title}></i></Link>
+                                    )
+                                })}
                             </div>
                         </div>
                     </div>

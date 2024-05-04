@@ -1,4 +1,4 @@
-import { getFAqApi, getFooterCollectionApi, getSitePolicyApi } from "../components/constant/Api";
+import { getFAqApi, getFooterCollectionApi, getSitePolicyApi, getSocialMediaApi } from "../components/constant/Api";
 import { myApi } from "./api";
 
 export const sitepolicyApi = myApi.injectEndpoints({
@@ -30,7 +30,16 @@ export const sitepolicyApi = myApi.injectEndpoints({
         return response.status ? response?.data ?? [] : [];
       },
     }),
+    getSocialMedia: builder.query({
+      query: () => ({
+        url: getSocialMediaApi,
+        method: "GET",
+      }),
+      transformResponse: (response, meta, arg) => {
+        return response.status ? response?.data ?? [] : [];
+      },
+    }),
   }),
 });
 
-export const { useGetFaqQuery, useGetSitePolicyQuery,useGetFooterCollectionQuery } = sitepolicyApi;
+export const { useGetFaqQuery, useGetSitePolicyQuery,useGetFooterCollectionQuery,useGetSocialMediaQuery } = sitepolicyApi;

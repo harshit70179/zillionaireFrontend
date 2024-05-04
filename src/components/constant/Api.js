@@ -30,3 +30,6 @@ export const getFooterCollectionApi="/footer-collection"
 //================== Order ==============
 export const addOrderApi="/add-order"
 export const getOrderApi="/get-order"
+
+//======================= Social media =============
+export const getSocialMediaApi="/get-social-media"
