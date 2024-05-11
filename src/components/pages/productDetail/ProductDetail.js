@@ -195,7 +195,7 @@ function ProductDetail() {
                                                 <i className="fa fa-check-circle"></i>
                                                 <span>200 in stock</span>
                                             </div> */}
-                                            <div className='d-flex'>
+                                            <div className='d-md-flex'>
                                             {sizeArr.length>0 &&  <div className="pro-size">
                                                     <span className="option-title">size :</span>
                                                     <select className="nice-select" onChange={handleChange} name="size" value={size}>
@@ -206,7 +206,7 @@ function ProductDetail() {
                                                         })}
                                                     </select>
                                                 </div>}
-                                                <div className={`pro-size ${sizeArr.length>0?"ms-3":""}`}>
+                                                <div className={`pro-size ${sizeArr.length>0?"ms-md-3":""}`}>
                                                     <span className="option-title">finishing :</span>
                                                     <select className="nice-select" onChange={handleChange} name="finishing" value={finishing}>
                                                         {finishingCategoryArr?.map((list) => {
