@@ -36,8 +36,9 @@ function ProductSlider({ products }) {
                     let image = JSON.parse(list.images)
                     let price = JSON.parse(list.price)
                     return (
-                        <div className='p-3' key={list.id}>
+                        <div className='p-md-3' key={list.id}>
                             <div className="img_item mb-3 heart-img">
+                                <span className='s_offer'>10% OFF</span>
                                 <Link to={`/product-detail/${list.id}`}>
                                     <Link to={`/product-detail/${list.id}`}>
                                         <img src={image[0]} className="img-fluid" alt="" />

@@ -50,9 +50,29 @@ function Header() {
                     <Link to="/" className="text-white">PRE-ORDER NOW ‘CRYSTAL FUSION’ – THE ALLURE OF WILD GEMS PAIRED WITH ORGANIC SHAPES</Link>
                 </div>
             </section>
-            <header id="header" className="d-flex align-items-center">
+
+            <div className='mobile_menu'>
+            <div className='text-end pe-3 pt-2'>
+               <i class="bi bi-x-lg"></i>
+            </div>
+            <Link to="/"><img src="/assets/img/logo.png" alt="" className="img-fluid" /></Link>
+            <div className='p-3 scroll_menu'>
+                <ul className='m-0 p-0'>
+                    <li><a href='#'>Jewelry</a></li>
+                    <li><a href='#'>Men's Jewelry</a></li>
+                    <li><a href='#'>New Collections</a></li>
+                    <li><a href='/profile'>Profile</a></li>
+                    <li><a href='/login'>Login</a></li>
+                    <li><a href='/wish-list'>Wish List</a></li>
+                    <li><a href='#'>Logout</a></li>
+                </ul>
+            </div>
+            </div>
+            <header id="header" className="d-lg-flex align-items-center">
+           
                 <div className="container-fluid d-flex justify-content-between align-items-center">
-                    <div className="logo">
+                <i className="bi bi-list mobile-nav-toggle"></i>
+                    <div className="logo ">
                         <Link to="/"><img src="/assets/img/logo.png" alt="" className="img-fluid" /></Link>
                     </div>
                     <nav id="navbar" className="navbar">
@@ -91,21 +111,38 @@ function Header() {
                             }
                             {/* <li><Link to="contact.html">Contact</Link></li> */}
                         </ul>
-                        <i className="bi bi-list mobile-nav-toggle"></i>
+                       
                     </nav>
-                    <div className="header_right ml-auto d-flex">
-                        <div className="header_right_item">
+                    <div className="header_right ml-auto d-flex   position-relative">
+                        <div className="header_right_item search_mobile">
+                        <div className='text-end dp_none1'>
+               <i class="bi bi-x-lg"></i>
+            </div><div className='position-relative'>
                             <input type="tex" name="" className="search_input mr-3" placeholder="search" />
-
-                        </div>
+                            <div className='serch_box'>
+                              <ul className='p-0 m-0'>
+                                <li>Abcd</li>
+                                <li>Abcd</li>
+                                <li>Abcd</li>
+                                <li>Abcd</li>
+                                <li>Abcd</li>
+                                <li>Abcd</li>
+                                <li>Abcd</li>
+                                <li>Abcd</li>
+                                <li>Abcd</li>
+                                <li>Abcd</li>
+                                <li>Abcd</li>
+                              </ul>
+                            </div> 
+                        </div></div>
                         <div className="header_right_item">
                             <Link to="/"> <i className="bi bi-search ifw20"></i></Link>
                         </div>
-                        <div className="header_right_item ms-3 ">
+                        <div className="header_right_item ms-3  mo_none">
                             <Link to="/wish-list"> <i className="bi bi-heart ifw20"></i></Link>
 
                         </div>
-                        <div className="header_right_item ms-3 dropdown">
+                        <div className="header_right_item ms-3 dropdown mo_none">
                             <Link> <i className="bi bi-person ifw20"></i></Link>
                             <div className="dropdown-content">
                                 {authenticated ? <><Link to="/profile" className='text-center'>PROFILE</Link><button onClick={logOut} >LOGOUT</button></> : <>
