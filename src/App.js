@@ -16,6 +16,9 @@ import PrivacyPolicy from "./components/pages/sitePolicy/PrivacyPolicy";
 import CheckOut from "./components/pages/checkout/CheckOut";
 import Faqs from "./components/pages/sitePolicy/Faqs";
 import Cart from "./components/pages/cart/Cart";
+import Search from "./components/pages/search/Search";
+import AllProducts from "./components/pages/products/AllProducts";
+import ForgetPassword from "./components/auth/ForgetPassword";
 
 function App() {
   return (
@@ -25,11 +28,14 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/forget-password" element={<ForgetPassword/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/products/:main_category_id/:main_category_name" element={<Products/>} />
         <Route path="/products/:main_category_id/:category_id/:category_name" element={<Products/>} />
         <Route path="/products/:main_category_id/:category_id/:sub_category_id/:sub_category_name" element={<Products/>} />
         <Route path="/product-detail/:id" element={<ProductDetail/>} />
+        <Route path="/search/:searchValue" element={<Search/>} />
+        <Route path="/all-products" element={<AllProducts/>} />
         <Route path="/sub-category-products/:sub_category_id/:sub_category_name" element={<SubCategoryProduct/>} />
         <Route path="/wish-list" element={<WishList/>} />
         <Route path="/tac" element={<Tac/>} />

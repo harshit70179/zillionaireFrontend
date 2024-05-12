@@ -286,6 +286,17 @@ h6 {
   position: relative !important;
 }
 .main-dropdown .down_page{padding: 30px 0px !important;}
+.desk-search{
+  display: none;
+  transition: all 0.2s ease-in-out;
+}
+.desk-search.active{
+  display: block;
+  transition: all 0.5s ease-in-out;
+}
+.search-btn:hover{
+  cursor: pointer;
+}
 @media (max-width: 1366px) {
   .navbar .dropdown .dropdown ul {
     left: -90%;
@@ -1312,7 +1323,7 @@ section {
 }
 .mobile_menu li{ display:block;}
 .mobile_menu {
-  position: absolute;
+  position: fixed;
   left: -100%;
   width: 250px;
   top: 0;    transition: 0.5s;
@@ -1709,6 +1720,8 @@ display: none;
   .serch_box ul li{   padding:8px 10px;   display: block;
   margin: 0;
    }
+   .serch_box ul li:hover{ cursor: pointer;
+     }
    .serch_box::-webkit-scrollbar {
     width: 5px;
   }

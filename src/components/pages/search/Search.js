@@ -1,29 +1,46 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import Header from '../../widgets/Header'
 import Footer from '../../widgets/Footer'
-import { useGetWishListQuery } from '../../../redux/userApi'
+import { useGetAllProductsQuery } from '../../../redux/productsApi'
 import { useAuth } from '../../../AuthContext'
 
-function WishList() {
-    const { data,refetch } = useGetWishListQuery()
-    const { authenticated } = useAuth();
+function Search() {
+    const {searchValue}=useParams()
+    const {wishList,handleWishlist,authenticated } = useAuth();
+    const { data: allProducts } = useGetAllProductsQuery()
+    const [data,setData]=useState([])
+
     useEffect(()=>{
-        if(authenticated){
-            refetch()
-        }
-    },[authenticated])
+         if(searchValue){
+            handleSearchChange(searchValue)
+         }
+    },[searchValue,allProducts])
+
+    const handleSearchChange = (query) => {
+        const filtered = allProducts?.filter(item =>
+            Object.values(item).some(value =>
+                typeof value === 'string' && value.toLowerCase().includes(query.toLowerCase())
+            )
+        );
+        setData(filtered);
+    }
+  
+    const handleClick=(id)=>{
+        handleWishlist(id)
+    }
+
     return (
         <>
             <Header />
             <div className="breadcrumb-area bg_light pt-5 pb-5 text-center">
                 <div className="container">
-                    <h3 className="mb-4">My WishList</h3>
+                    <h3 className="mb-4">Search</h3>
                 </div>
             </div>
             <section className="home_product_item">
                 <div className="container">
-                    {authenticated ? <div className="row">
+                   <div className="row">
                         {
                             data && data?.map((list) => {
                                 let image = JSON.parse(list.images)
@@ -32,10 +49,12 @@ function WishList() {
                                 return (
                                     <div className="col-md-4 mb-2" key={list.id}>
                                         <div className="shadow1">
-                                            <div className="img_item  ">
+                                            <div className="img_item  mb-3 heart-img">
+                                            {price[0]?.save>0?<span className='s_offer'>{price[0]?.save}% OFF</span>:""}
                                                 <Link to={`/product-detail/${list.id}`} className='heart-img'>
                                                     <img src={image[0]} className="img-fluid" alt="" />
                                                 </Link>
+                                                {authenticated && (wishList.includes(list.id)?<i class="bi bi-suit-heart-fill" onClick={()=>{handleClick(list.id)}}></i>:<i className='bi bi-heart' onClick={()=>{handleClick(list.id)}}></i>)}
                                             </div>
                                             <div className="product-grid_item p-3 ">
                                                 <span className="product-grid-item__vendor">Ruby &amp; Garnet</span>
@@ -47,17 +66,7 @@ function WishList() {
                                 )
                             })
                         }
-                    </div> : <div className='row'>
-                        <div className='col-md-4'>
-
-                        </div>
-                        <div className='col-md-4'>
-                            <p>Your wishlist has been temporarily saved.<Link to="/register" className='text-d'> Create an account</Link> or <Link to="/login" className='text-d'> sign</Link>  in to save it permanently.</p>
-                        </div>
-                        <div className='col-md-4'>
-
-                        </div>
-                    </div>}
+                    </div>
                 </div>
             </section>
             <Footer />
@@ -65,4 +74,4 @@ function WishList() {
     )
 }
 
-export default WishList
+export default Search

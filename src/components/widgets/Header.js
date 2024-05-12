@@ -1,18 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../AuthContext';
 import { useGetHeaderQuery } from '../../redux/headerApi';
 import { useDispatch, useSelector } from 'react-redux';
-import {increament, decreament,removeAll,remove,total} from '../../redux/cartSlice';
+import { increament, decreament, removeAll, remove, total } from '../../redux/cartSlice';
 import { useSetWishListMutation } from '../../redux/userApi';
 import CartItem from './CartItem';
+import { useGetAllProductsQuery } from '../../redux/productsApi';
 
 function Header() {
+    const { data: allProducts } = useGetAllProductsQuery()
     const dispatch = useDispatch();
-    const { item: products, totalamount,count } = useSelector((state) => state.cart);
+    const { item: products, totalamount, count } = useSelector((state) => state.cart);
     const { data } = useGetHeaderQuery()
-    const { authenticated, logout,wishList } = useAuth();
-    const [setWishList]=useSetWishListMutation()
+    const { authenticated, logout, wishList } = useAuth();
+    const [setWishList] = useSetWishListMutation()
+    const [filterProduct, setFilterProduct] = useState([])
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchListShow,setSearchListShow]=useState("")
+    const [showSearch,setShowsearch]=useState("")
+    const [openMenu,setOpenMenu]=useState("")
     const navigate = useNavigate()
     const logOut = () => {
         localStorage.removeItem("jwtToken")
@@ -23,12 +30,12 @@ function Header() {
     const increment = (id) => {
         dispatch(increament(id));
     };
-    
+
     const decrement = (id) => {
         dispatch(decreament(id));
     };
 
-    const clearCart=()=>{
+    const clearCart = () => {
         dispatch(removeAll())
     }
 
@@ -37,11 +44,50 @@ function Header() {
         dispatch(total())
     };
 
-    useEffect(()=>{
-        if(wishList && authenticated){
-            setWishList({wish_list:JSON.stringify(wishList)})
+    useEffect(() => {
+        if (wishList && authenticated) {
+            setWishList({ wish_list: JSON.stringify(wishList) })
         }
-    },[wishList])
+    }, [wishList])
+
+    const handleSearchChange = (event) => {
+        const query = event.target.value;
+        setSearchQuery(query);
+        const filtered = allProducts?.filter(item =>
+            Object.values(item).some(value =>
+                typeof value === 'string' && value.toLowerCase().includes(query.toLowerCase())
+            )
+        );
+        setFilterProduct(filtered);
+        if(filtered.length>0){
+            setSearchListShow("active")
+        }
+        if(query===""){
+            setSearchListShow("")
+        }
+    };
+    
+    const handleShowSearch=()=>{
+        setShowsearch("active")
+    }
+
+    const handleCloseSearch=()=>{
+        setShowsearch("")
+    }
+
+    const handleOpenMenu=()=>{
+        setOpenMenu("active")
+    }
+
+    const handleCloseMenu=()=>{
+        setOpenMenu("")
+    }
+
+    const handleSearch=(value)=>{
+        navigate(`/search/${value}`)
+        handleCloseSearch()
+        setSearchQuery('')
+    }
 
     return (
         <>
@@ -51,27 +97,27 @@ function Header() {
                 </div>
             </section>
 
-            <div className='mobile_menu'>
-            <div className='text-end pe-3 pt-2'>
-               <i class="bi bi-x-lg"></i>
-            </div>
-            <Link to="/"><img src="/assets/img/logo.png" alt="" className="img-fluid" /></Link>
-            <div className='p-3 scroll_menu'>
-                <ul className='m-0 p-0'>
-                    <li><a href='#'>Jewelry</a></li>
-                    <li><a href='#'>Men's Jewelry</a></li>
-                    <li><a href='#'>New Collections</a></li>
-                    <li><a href='/profile'>Profile</a></li>
-                    <li><a href='/login'>Login</a></li>
-                    <li><a href='/wish-list'>Wish List</a></li>
-                    <li><a href='#'>Logout</a></li>
-                </ul>
-            </div>
+            <div className={`mobile_menu ${openMenu}`}>
+                <div className='text-end pe-3 pt-2' onClick={handleCloseMenu}>
+                    <i class="bi bi-x-lg"></i>
+                </div>
+                <Link to="/"><img src="/assets/img/logo.png" alt="" className="img-fluid" /></Link>
+                <div className='p-3 scroll_menu'>
+                    <ul className='m-0 p-0'>
+                        <li><a href='#'>Jewelry</a></li>
+                        <li><a href='#'>Men's Jewelry</a></li>
+                        <li><a href='#'>New Collections</a></li>
+                        <li><a href='/profile'>Profile</a></li>
+                        <li><a href='/login'>Login</a></li>
+                        <li><a href='/wish-list'>Wish List</a></li>
+                        <li><a href='#'>Logout</a></li>
+                    </ul>
+                </div>
             </div>
             <header id="header" className="d-lg-flex align-items-center">
-           
+
                 <div className="container-fluid d-flex justify-content-between align-items-center">
-                <i className="bi bi-list mobile-nav-toggle"></i>
+                    <i className="bi bi-list mobile-nav-toggle" onClick={handleOpenMenu}></i>
                     <div className="logo ">
                         <Link to="/"><img src="/assets/img/logo.png" alt="" className="img-fluid" /></Link>
                     </div>
@@ -111,32 +157,27 @@ function Header() {
                             }
                             {/* <li><Link to="contact.html">Contact</Link></li> */}
                         </ul>
-                       
+
                     </nav>
                     <div className="header_right ml-auto d-flex   position-relative">
-                        <div className="header_right_item search_mobile">
-                        <div className='text-end dp_none1'>
-               <i class="bi bi-x-lg"></i>
-            </div><div className='position-relative'>
-                            <input type="tex" name="" className="search_input mr-3" placeholder="search" />
-                            <div className='serch_box'>
-                              <ul className='p-0 m-0'>
-                                <li>Abcd</li>
-                                <li>Abcd</li>
-                                <li>Abcd</li>
-                                <li>Abcd</li>
-                                <li>Abcd</li>
-                                <li>Abcd</li>
-                                <li>Abcd</li>
-                                <li>Abcd</li>
-                                <li>Abcd</li>
-                                <li>Abcd</li>
-                                <li>Abcd</li>
-                              </ul>
-                            </div> 
-                        </div></div>
+                        <div className={`header_right_item search_mobile ${showSearch}`}>
+                            <div className='text-end dp_none1'>
+                                <i class="bi bi-x-lg" onClick={handleCloseSearch}></i>
+                            </div><div className={`position-relative  desk-search ${showSearch}`}>
+                                <input type="tex" name="" className="search_input mr-3" placeholder="search" value={searchQuery}
+                                    onChange={handleSearchChange} />
+                                <div className={`serch_box ${searchListShow}`}>
+                                    <ul className='p-0 m-0'>
+                                        {filterProduct?.map((list)=>{
+                                            return (
+                                                <li key={list.id} onClick={()=>{handleSearch(list.title)}}>{list.title}</li>
+                                            )
+                                        })}
+                                    </ul>
+                                </div>
+                            </div></div>
                         <div className="header_right_item">
-                            <Link to="/"> <i className="bi bi-search ifw20"></i></Link>
+                            <span className='search-btn'>{showSearch?  <i class="bi bi-x-lg" onClick={handleCloseSearch}></i> :<i className="bi bi-search ifw20" onClick={handleShowSearch}></i>} </span>
                         </div>
                         <div className="header_right_item ms-3  mo_none">
                             <Link to="/wish-list"> <i className="bi bi-heart ifw20"></i></Link>
@@ -162,7 +203,7 @@ function Header() {
                 </div>
             </header>
 
-           <CartItem products={products} totalamount={totalamount} decrement={decrement} increment={increment} authenticated={authenticated} clearCart={clearCart} handleRemove={handleRemove}/>
+            <CartItem products={products} totalamount={totalamount} decrement={decrement} increment={increment} authenticated={authenticated} clearCart={clearCart} handleRemove={handleRemove} />
         </>
     )
 }

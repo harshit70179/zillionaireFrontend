@@ -6,6 +6,7 @@ export const changePasswordApi=baseUrl+"/user-change-password"
 export const getUserDetailApi="/get-user-detail"
 export const getWishListApi="/get-wish-list"
 export const addWishListApi="/add-wish-list"
+export const forgetPasswordApi=baseUrl+"/forget-password"
 
 //============= Banner ====================
 export const getTopBannerApi="/get-top-banner"
@@ -18,6 +19,7 @@ export const getHeaderApi="/get-header"
 //=================== Products ==================
 export const getProductsApi="/get-products"
 export const getProductByIdApi="/get-product-by-id"
+export const getAllProductsApi="/get-all-products"
 
 //================= Home =================
 export const getHomeproductApi="/get-home-product"

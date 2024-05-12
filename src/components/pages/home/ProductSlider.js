@@ -35,10 +35,11 @@ function ProductSlider({ products }) {
                 products && products?.map((list) => {
                     let image = JSON.parse(list.images)
                     let price = JSON.parse(list.price)
+                    let discount=price[0]?.save>0?(price[0].price)-((price[0].price*price[0].save)/100):price[0].price
                     return (
                         <div className='p-md-3' key={list.id}>
                             <div className="img_item mb-3 heart-img">
-                                <span className='s_offer'>10% OFF</span>
+                                {price[0]?.save>0?<span className='s_offer'>{price[0]?.save}% OFF</span>:""}
                                 <Link to={`/product-detail/${list.id}`}>
                                     <Link to={`/product-detail/${list.id}`}>
                                         <img src={image[0]} className="img-fluid" alt="" />
@@ -60,7 +61,7 @@ function ProductSlider({ products }) {
                                 </span>
                                 <Link to="/" className="text-m" >22 Reviews</Link>
                             </div>
-                            <span className="product_item_price money">${price[0]?.price} USD</span>
+                            <span className="product_item_price money">${discount} USD {price[0]?.save>0?<del>${price[0]?.price}</del>:""}</span>
                         </div>
                     )
                 })

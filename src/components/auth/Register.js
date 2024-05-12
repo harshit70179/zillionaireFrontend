@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Header from '../widgets/Header'
 import Footer from '../widgets/Footer'
 import { Link, useNavigate } from 'react-router-dom'
 import { RegisterValid } from '../validations/RegisterValid';
 import { register } from '../services/Login';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../AuthContext';
 
 function Register() {
+    const { authenticated } = useAuth();
     const navigate = useNavigate()
     const [disable, setDisable] = useState(false);
     const [registerField, setRegisterField] = useState({
@@ -25,6 +27,14 @@ function Register() {
         eye: "bi-eye-slash",
         type: "password",
     });
+
+    
+    useEffect(() => {
+        if (authenticated) {
+            navigate("/", { replace: true });
+        }
+    }, [authenticated])
+
     const handleShowPassword = () => {
         if (showPassword.type === "password") {
             setShowPassword({ eye: "bi-eye", type: "text" });

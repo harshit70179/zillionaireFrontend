@@ -15,12 +15,12 @@ function Footer() {
                     <div className="row">
                         <div className="col-lg-3 col-md-6 footer-contact">
                             <img src="/assets/img/logo.png" className="img-fluid" alt=''/>
-                            <p className="mt-5">
+                            {/* <p className="mt-5">
                                 A108 Adam Street
                                 New York, NY 535022
                                 United States
-                            </p>
-                            <div className="payment_methods">
+                            </p> */}
+                            <div className="payment_methods mt-3">
                                 <img className=" ls-is-cached lazyloaded" src="/assets/img/p1.png" alt=''/>
                                 <img className=" ls-is-cached lazyloaded" src="/assets/img/p2.png" alt=''/>
                                 <img className=" ls-is-cached lazyloaded" src="/assets/img/p3.png" alt=''/>

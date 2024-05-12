@@ -133,8 +133,10 @@ function CheckOut() {
                                         </div>
                                         <div className=' cart-des'>
                                             <div className='price-box'>
-                                                <span className=""> ${list.quantity * list.price}</span>
+                                                {/* <span className=""> ${list.quantity * list.price}</span> */}
+                                                <span className="price-regular">${list.save>0?(list.quantity *(list.price)-((list.price*list.save)/100)):list.quantity *list.price}</span>{list.save>0?<del>${list.quantity *list.price}</del>:""}
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
