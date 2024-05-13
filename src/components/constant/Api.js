@@ -35,3 +35,6 @@ export const getOrderApi="/get-order"
 
 //======================= Social media =============
 export const getSocialMediaApi="/get-social-media"
+
+//====================== Explore ================
+export const getExploreApi="/get-explore"

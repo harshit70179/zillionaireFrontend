@@ -5,8 +5,8 @@ import Footer from '../../widgets/Footer'
 import { useGetProductsMutation } from '../../../redux/productsApi'
 import { useAuth } from '../../../AuthContext'
 
-function SubCategoryProduct() {
-    const { sub_category_id, sub_category_name } = useParams()
+function ExploreProduct() {
+    const { main_category_id } = useParams()
     const [getProducts, { data }] = useGetProductsMutation()
     const { wishList, handleWishlist, authenticated } = useAuth();
     const handleClick = (id) => {
@@ -14,13 +14,13 @@ function SubCategoryProduct() {
     }
 
     useEffect(() => {
-        if (sub_category_id) {
+        if (main_category_id) {
             const sendData = {
-                sub_category_id
+                main_category_id
             }
             getProducts(sendData)
         }
-    }, [sub_category_id])
+    }, [main_category_id])
 
     useEffect(() => {
         scrollTop()
@@ -39,7 +39,7 @@ function SubCategoryProduct() {
             <Header />
             <div className="breadcrumb-area bg_light pt-5 pb-4 text-center">
                 <div className="container">
-                    <h3 className="mb-4">{sub_category_name}</h3>
+                    <h3 className="mb-4">Explore</h3>
                     {/* <b>RING IN THE REAL GEMSTONE ENERGY</b> */}
                     <p>Every piece tells a unique story and every stack is a celebration of you. </p>
                 </div>
@@ -80,4 +80,4 @@ function SubCategoryProduct() {
     )
 }
 
-export default SubCategoryProduct
+export default ExploreProduct

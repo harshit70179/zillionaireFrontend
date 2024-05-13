@@ -59,4 +59,7 @@ export const checkoutValid = (name, value, id) => {
         }
         return error;
     }
+    else{
+        return error
+    }
 };

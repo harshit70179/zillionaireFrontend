@@ -6,16 +6,25 @@ import { Link, useNavigate } from 'react-router-dom';
 import { removeAll } from '../../../redux/cartSlice';
 import { checkoutValid } from '../../validations/CheckoutValid';
 import { useAuth } from '../../../AuthContext';
+import { useGetUserDetailQuery } from '../../../redux/userApi'
 
 function CheckOut() {
     const navigate = useNavigate()
+    const { data } = useGetUserDetailQuery()
     const { authenticated } = useAuth();
     const dispatch = useDispatch();
     const [setOrder] = useSetOrderMutation()
     const [disable, setDisable] = useState(false);
     const { item: products, totalamount, grandtotal, count } = useSelector((state) => state.cart);
-    const [infoField, setInfoField] = useState({ email: "", firstName: "", lastName: "", mobileNumber: "", address: "" })
+    const [infoField, setInfoField] = useState({ email: "", firstName: "", lastName: "", mobileNumber: "", address: "",giftNote:"" })
     const [infoFieldErr, setInfoFieldErr] = useState({ email: "", firstName: "", lastName: "", mobileNumber: "", address: "" })
+    const [giftSelect,setGiftSelect]=useState(false)
+
+    useEffect(()=>{
+        if(data){
+            setInfoField({...infoField,["email"]:data?.email,["firstName"]:data?.first_name,["lastName"]:data?.last_name})
+        }
+    },[data])
 
     useEffect(() => {
         if (products.length === 0 || !authenticated) {
@@ -36,6 +45,7 @@ function CheckOut() {
         setTimeout(() => {
             setDisable(false);
         }, 3000);
+       
         for (let key in infoField) {
             let checkInfo = checkoutValid(key, infoField[key]);
             setInfoFieldErr({ ...infoFieldErr, [key]: checkInfo });
@@ -54,20 +64,31 @@ function CheckOut() {
             discount: 0,
             shipping: 0,
             product_items: JSON.stringify(products),
-            total_item:count
+            total_item:count,
+            gift_status:giftSelect?'1':'0',
+            gift_note:infoField.giftNote
         }
         setOrder(data).then((result) => {
             if (result.data.status) {
-                navigate("/profile", { replace: true })
                 toast.dismiss();
                 toast.success(result.data.message);
                 dispatch(removeAll())
+                setTimeout(() => {
+                    navigate("/profile", { replace: true })
+                }, 2000);
             }
             else {
                 toast.dismiss();
                 toast.error(result.data.message);
             }
         })
+    }
+
+    const handleGiftSelect=()=>{
+        setGiftSelect(!giftSelect)
+        if(!giftSelect){
+            setInfoField({...infoField,["giftNote"]:""})
+        }
     }
 
     return (
@@ -80,28 +101,44 @@ function CheckOut() {
                             <div className='row'>
                                 <div className='col-12 mb-3'>
                                     <h6 className='mb-3'><b>CONTACT</b></h6>
-                                    <input type='text' name='email' placeholder='Email *' onChange={handleChange} className='form-control' />
+                                    <input type='text' name='email' placeholder='Email *' onChange={handleChange} className='form-control' value={infoField.email} readOnly/>
                                     <span className='text-danger'>{infoFieldErr.email}</span>
                                 </div>
                                 <div className='col-12'>
                                     <h6 className='mb-3 mt-4'><b>SHIPPING ADDRESS</b></h6>
                                 </div>
                                 <div className='col-md-6 mb-3'>
-                                    <input type='text' name='firstName' placeholder='First name *' onChange={handleChange} className='form-control' />
+                                    <input type='text' name='firstName' placeholder='First name *' onChange={handleChange} className='form-control' value={infoField.firstName}/>
                                     <span className='text-danger'>{infoFieldErr.firstName}</span>
                                 </div>
                                 <div className='col-md-6 mb-3'>
-                                    <input type='text' name="lastName" placeholder='Last name *' onChange={handleChange} className='form-control' />
+                                    <input type='text' name="lastName" placeholder='Last name *' onChange={handleChange} className='form-control' value={infoField.lastName}/>
                                     <span className='text-danger'>{infoFieldErr.lastName}</span>
                                 </div>
                                 <div className='col-12 mb-3'>
-                                    <input type='text' name='mobileNumber' placeholder='Phone number *' onChange={handleChange} className='form-control' />
+                                    <input type='text' name='mobileNumber' placeholder='Phone number *' onChange={handleChange} className='form-control' value={infoField.mobileNumber}/>
                                     <span className='text-danger'>{infoFieldErr.mobileNumber}</span>
                                 </div>
                                 <div className='col-12 mb-3'>
-                                    <input type='text' name='address' placeholder='Address *' onChange={handleChange} className='form-control' />
+                                    <input type='text' name='address' placeholder='Address *' onChange={handleChange} className='form-control' value={infoField.address}/>
                                     <span className='text-danger'>{infoFieldErr.address}</span>
                                 </div>
+                                <div className='col-12'>
+                                     <div className='d-flex gift'>
+                                        <img src="/assets/img/gift.jpg" alt=''/>
+                                        <div className='title'>
+                                            <h4>Ordering a gift?</h4>
+                                            <p>Get your item in a gift bag</p>
+                                        </div>
+                                        <div className='text-end w-50 gift-btn'>
+                                            <button onClick={handleGiftSelect} type='button'>{giftSelect?"Unselect":"Select"}</button>
+                                        </div>
+                                     </div>
+                                </div>
+                                {giftSelect?<div className='col-12 mb-3 mt-3'>
+                                    <input type='text' name='giftNote' placeholder='Gift Note' onChange={handleChange} className='form-control' value={infoField.gitNote}/>
+                                    
+                                </div>:""}
                                 <div className='col-md-6 mb-3 mt-2 d-flex align-items-center'>
                                     <Link to="/cart"> <i class="bi bi-arrow-left-short"></i> RETURN TO CART</Link>
                                 </div>

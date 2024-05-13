@@ -19,6 +19,7 @@ import Cart from "./components/pages/cart/Cart";
 import Search from "./components/pages/search/Search";
 import AllProducts from "./components/pages/products/AllProducts";
 import ForgetPassword from "./components/auth/ForgetPassword";
+import ExploreProduct from "./components/pages/products/ExploreProduct";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/search/:searchValue" element={<Search/>} />
         <Route path="/all-products" element={<AllProducts/>} />
         <Route path="/sub-category-products/:sub_category_id/:sub_category_name" element={<SubCategoryProduct/>} />
+        <Route path="/explore-products/:main_category_id" element={<ExploreProduct/>} />
         <Route path="/wish-list" element={<WishList/>} />
         <Route path="/tac" element={<Tac/>} />
         <Route path="/shipping" element={<Shipping/>} />
