@@ -6,6 +6,7 @@ import { useAuth } from '../../../AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { useGetOrderQuery } from '../../../redux/orderApi'
 import ChangePasswordModal from '../../partials/ChangePasswordModal'
+import OrderViewModal from '../../partials/OrderViewModal'
 
 function Profile() {
     const navigate = useNavigate()
@@ -15,6 +16,8 @@ function Profile() {
     const [show, setShow] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10)
+    const [currectRecord,setCurrectRecord]=useState({})
+    const [showOrder,setShowOrder]=useState(false)
 
     useEffect(() => {
         if (!authenticated) {
@@ -44,6 +47,11 @@ function Profile() {
 
     // Generate array of page numbers
     const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+
+    const handleShowOrder=(record)=>{
+        setCurrectRecord(record)
+        setShowOrder(true)
+    }
 
     return (
         <>
@@ -94,7 +102,9 @@ function Profile() {
                                                         <td>{list.total}</td>
                                                         <td>{list.grand_total}</td>
                                                         <td>{list.status}</td>
-                                                        <td><button className='btn btn-primary'>View</button></td>
+                                                        <td><button className='btn btn-primary' onClick={()=>{
+                    handleShowOrder(list)
+                }}>View</button></td>
                                                     </tr>
                                                 )
                                             })
@@ -149,6 +159,7 @@ function Profile() {
             </section>
             <Footer />
             <ChangePasswordModal show={show} setShow={setShow} />
+            <OrderViewModal setShowOrder={setShowOrder} showOrder={showOrder} currentRecord={currectRecord}/>
         </>
     )
 }

@@ -327,6 +327,20 @@ h6 {
  .gift-btn button:hover{
   background: #e9b954;
  }
+ .cart-item{
+  display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+.cart-item img{
+    width: 100px;
+}
+.total div{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
 @media (max-width: 1366px) {
   .navbar .dropdown .dropdown ul {
     left: -90%;
