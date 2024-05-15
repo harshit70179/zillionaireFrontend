@@ -1,4 +1,4 @@
-import { addOrderApi, getOrderApi } from "../components/constant/Api";
+import { addOrderApi, getOrderApi, getOrderPdfApi } from "../components/constant/Api";
 import { myApi } from "./api";
 
 export const orderApi = myApi.injectEndpoints({
@@ -21,7 +21,17 @@ export const orderApi = myApi.injectEndpoints({
         },
         providesTags: (_) => ["order"],
       }),
+      getOrderPdf: builder.mutation({
+        query: (post) => ({
+          url: getOrderPdfApi+"/"+post.id,
+          method: "GET",
+        }),
+        transformResponse: (response, meta, arg) => {
+          return response.status ? response?.data ?? {} :{};
+        },
+        providesTags: (_) => ["order"],
+      }),
   }),
 });
 
-export const { useSetOrderMutation,useGetOrderQuery} = orderApi;
+export const { useSetOrderMutation,useGetOrderQuery,useGetOrderPdfMutation} = orderApi;

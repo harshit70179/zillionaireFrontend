@@ -20,6 +20,7 @@ function Header() {
     const [searchListShow,setSearchListShow]=useState("")
     const [showSearch,setShowsearch]=useState("")
     const [openMenu,setOpenMenu]=useState("")
+    const [scrolltopdata, setscrolltopdata] = useState('');
     const navigate = useNavigate()
     const logOut = () => {
         localStorage.removeItem("jwtToken")
@@ -43,6 +44,16 @@ function Header() {
         dispatch(remove(productId));
         dispatch(total())
     };
+
+    useEffect(() => {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY < 15) {
+                setscrolltopdata('');
+            } else {
+                setscrolltopdata('header-fix');
+            }
+        });
+    }, [])
 
     useEffect(() => {
         if (wishList && authenticated) {
@@ -107,7 +118,7 @@ function Header() {
                     <ul className='m-0 p-0'>
                         <li><a className=' m_m collapsed' href='#' data-bs-toggle="collapse" data-bs-target="#Jewelry">Jewelry <i className="ms-auto bi bi-chevron-down"></i></a>
                         <div id="Jewelry" className="mobile_c_manu collapse">
-                            <a className='ttu' href='#'>Rings <i className="ms-auto bi bi-chevron-right"></i></a>
+                            <a className='ttu' href='/'>Rings <i className="ms-auto bi bi-chevron-right"></i></a>
                             <a className='ttu' href='#'>Earrings <i className="ms-auto bi bi-chevron-right"></i></a>
                             <a className='ttu' href='#'>Bracelets <i className="ms-auto bi bi-chevron-right"></i></a>
                             <a className='ttu' href='#'>Necklaces And Pendants <i className="ms-auto bi bi-chevron-right"></i></a>
@@ -133,7 +144,7 @@ function Header() {
                 </div>
                 </div>
             </div>
-            <header id="header" className="d-lg-flex align-items-center">
+            <header id="header" className={`d-lg-flex align-items-center ${scrolltopdata}`}>
 
                 <div className="container-fluid d-flex justify-content-between align-items-center">
                     <i className="bi bi-list mobile-nav-toggle" onClick={handleOpenMenu}></i>

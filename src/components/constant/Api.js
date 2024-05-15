@@ -32,6 +32,7 @@ export const getFooterCollectionApi="/footer-collection"
 //================== Order ==============
 export const addOrderApi="/add-order"
 export const getOrderApi="/get-order"
+export const getOrderPdfApi="/get-pdf"
 
 //======================= Social media =============
 export const getSocialMediaApi="/get-social-media"
