@@ -96,8 +96,8 @@ const cartSlice = createSlice({
             var sum = 0;
             var noProduct = 0
             state.item.map((item) => {
-                if (item.save === 0) {
-                    sum = sum + item.price * item.quantity;
+                if (item.save === 0 || !item.save) {
+                    sum = sum + (item.price * item.quantity);
                     noProduct = item.quantity + noProduct
                 }
                 else {

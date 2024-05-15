@@ -40,7 +40,7 @@ function OrderViewModal(props) {
                   
 
                     <div className='product-item'>
-                        <table>
+                        <table class="table ref14">
 
                             <thead>
                                 <tr>
