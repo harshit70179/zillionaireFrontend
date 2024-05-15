@@ -29,7 +29,6 @@ const cartSlice = createSlice({
             return { ...state, item:newitem  };
         },
         removeAll(state, action) {
-            console.log("removeAll")
             localStorage.removeItem("count")
             localStorage.removeItem("cartItem")
             localStorage.removeItem("totalamount")

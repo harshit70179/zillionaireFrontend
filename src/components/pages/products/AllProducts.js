@@ -1,41 +1,56 @@
-import React, { useEffect } from 'react'
+import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../../widgets/Header'
 import Footer from '../../widgets/Footer'
-import { useGetWishListQuery } from '../../../redux/userApi'
 import { useAuth } from '../../../AuthContext'
+import { useGetAllProductsQuery } from '../../../redux/productsApi'
 
-function WishList() {
-    const { data,refetch } = useGetWishListQuery()
-    const { authenticated } = useAuth();
-    useEffect(()=>{
-        if(authenticated){
-            refetch()
-        }
-    },[authenticated])
+function AllProducts() {
+    const { data } = useGetAllProductsQuery()
+    const { wishList, handleWishlist,authenticated } = useAuth();
+    const handleClick = (id) => {
+        handleWishlist(id)
+    }
+
+    useEffect(() => {
+        scrollTop()
+    }, [])
+
+    const scrollTop = () => {
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    }
+
     return (
         <>
             <Header />
-            <div className="breadcrumb-area bg_light pt-5 pb-5 text-center">
+            <div className="breadcrumb-area bg_light pt-5 pb-4 text-center">
                 <div className="container">
-                    <h3 className="mb-4">My WishList</h3>
+                    <h3 className="mb-4">All Products</h3>
+                    {/* <b>RING IN THE REAL GEMSTONE ENERGY</b> */}
+                    <p>Every piece tells a unique story and every stack is a celebration of you. </p>
                 </div>
             </div>
             <section className="home_product_item">
                 <div className="container">
-                    {authenticated ? <div className="row">
+                    <div className="row">
                         {
-                            data && data?.map((list) => {
+                            data?.map((list) => {
                                 let image = JSON.parse(list.images)
                                 let price = JSON.parse(list.price)
                                 let discount=price[0]?.save>0?(price[0].price)-((price[0].price*price[0].save)/100):price[0].price
                                 return (
                                     <div className="col-md-4 mb-2" key={list.id}>
                                         <div className="shadow1">
-                                            <div className="img_item  ">
-                                                <Link to={`/product-detail/${list.id}`} className='heart-img'>
+                                            <div className="img_item  heart-img">
+                                            {price[0]?.save>0?<span className='s_offer'>{price[0]?.save}% OFF</span>:""}
+                                                <Link to={`/product-detail/${list.id}`} className=''>
                                                     <img src={image[0]} className="img-fluid" alt="" />
                                                 </Link>
+                                                {authenticated && (wishList.includes(list.id) ? <i class="bi bi-suit-heart-fill" onClick={() => { handleClick(list.id) }}></i> : <i className='bi bi-heart' onClick={() => { handleClick(list.id) }}></i>)}
                                             </div>
                                             <div className="product-grid_item p-3 ">
                                                 <span className="product-grid-item__vendor">Ruby &amp; Garnet</span>
@@ -47,17 +62,7 @@ function WishList() {
                                 )
                             })
                         }
-                    </div> : <div className='row'>
-                        <div className='col-md-4'>
-
-                        </div>
-                        <div className='col-md-4'>
-                            <p>Your wishlist has been temporarily saved.<Link to="/register" className='text-d'> Create an account</Link> or <Link to="/login" className='text-d'> sign</Link>  in to save it permanently.</p>
-                        </div>
-                        <div className='col-md-4'>
-
-                        </div>
-                    </div>}
+                    </div>
                 </div>
             </section>
             <Footer />
@@ -65,4 +70,4 @@ function WishList() {
     )
 }
 
-export default WishList
+export default AllProducts

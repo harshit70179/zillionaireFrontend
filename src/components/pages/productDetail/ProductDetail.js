@@ -24,6 +24,7 @@ function ProductDetail() {
     const [size, setSize] = useState("")
     const [finishing, setzfinishing] = useState("")
     const [price, setPrice] = useState(0)
+    const [save,setSave]=useState(0)
     const [quantity,setQuantity]=useState(1)
 
     useEffect(() => {
@@ -49,6 +50,7 @@ function ProductDetail() {
             setSize(size[0])
             setzfinishing(finishing[0])
             setPriceArr(price)
+           
         }
     }, [data])
 
@@ -56,9 +58,11 @@ function ProductDetail() {
         if (size && finishing) {
             let filterPrice = priceArr.filter((list) => { return list.finishingCategory === finishing && list.size === size })
             setPrice(parseFloat(filterPrice[0]?filterPrice[0]?.price:0))
+            setSave(parseFloat(filterPrice[0]?filterPrice[0]?.save:0))
         }
         else {
             setPrice(parseFloat(priceArr[0]?.price))
+            setSave(parseFloat(priceArr[0]?.save))
         }
     }, [size, finishing])
 
@@ -90,7 +94,7 @@ function ProductDetail() {
             quantity:quantity,
             finishing:finishing,
             size:size,
-            save:0,
+            save:save,
             images:images[0]
         }
         dispatch(add(product));
@@ -186,7 +190,7 @@ function ProductDetail() {
                                                 <Link to="/" className="text-m">22 Reviews</Link>
                                             </div>
                                             <div className="price-box">
-                                               {price>0?<span className="price-regular">${price}</span>:""} 
+                                               {price>0?<><span className="price-regular">${save>0?(price)-((price*save)/100):price}</span>{save>0?<del>${price}</del>:""}</>:""} 
                                                 {/* <span className="price-old"><del>$90.00</del></span> */}
                                             </div>
                                             {/* <h5 className="offer-text mt-3"><strong>Hurry up</strong>! offer ends in:</h5>

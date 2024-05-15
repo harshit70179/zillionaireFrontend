@@ -286,6 +286,54 @@ h6 {
   position: relative !important;
 }
 .main-dropdown .down_page{padding: 30px 0px !important;}
+.desk-search{
+  display: none;
+  transition: all 0.2s ease-in-out;
+}
+.desk-search.active{
+  display: block;
+  transition: all 0.5s ease-in-out;
+}
+.search-btn:hover{
+  cursor: pointer;
+}
+.gift{
+  display: flex;
+  align-items: center;
+  background: #f4f4f4;
+  padding: 13px;
+  border-radius: 8px;
+}
+.gift img{
+  width: 12%;
+}
+.gift .title{
+ margin-left: 20px;
+}
+.gift .title h4{
+  margin: 0;
+ }
+ .gift .title p{
+  color: #847f7f;
+ }
+ 
+ .gift-btn button:hover{
+  background: #e9b954;
+ }
+ .cart-item{
+  display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+.cart-item img{
+    width: 100px;
+}
+.total div{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
 @media (max-width: 1366px) {
   .navbar .dropdown .dropdown ul {
     left: -90%;
@@ -838,7 +886,7 @@ section {
 }
 
 .bg_light {
-  background-color: #f5f5f5;
+  background-color: #f3f2f2;
 }
 
 .ifw20 {
@@ -989,10 +1037,13 @@ section {
   font-size: 14px;
   background: #fff;
 }
-
+.active>.page-link, .page-link.active {
+  background-color: #d2ac5b;
+  border-color: #d2ac5b;
+}
 
 .btn {
-  background: #d2ac5b;
+  background: #d2ac5b; border: 1px solid #d2ac5b;
   color: #fff;
 }
 
@@ -1009,7 +1060,7 @@ section {
 .price-regular {
   color: #c29958;
   font-weight: 500;
-  font-size: 28px;
+  font-size: 25px;
   margin-right: 10px;
 }
 
@@ -1151,7 +1202,7 @@ section {
 }
 .cart-h{
   margin-left: 20px;
-  width: 60%;
+  width: 70%;
 }
 .cart-h h5{
    margin: 0;
@@ -1312,7 +1363,7 @@ section {
 }
 .mobile_menu li{ display:block;}
 .mobile_menu {
-  position: absolute;
+  position: fixed;
   left: -100%;
   width: 250px;
   top: 0;    transition: 0.5s;
@@ -1405,7 +1456,7 @@ section {
 }
 
 .check-cart{
-  background-color: #d8d8d845;
+  background-color: rgb(229 229 229 / 23%);
   padding: 85px 190px 45px 90px;
 }
 .check-info{
@@ -1709,6 +1760,8 @@ display: none;
   .serch_box ul li{   padding:8px 10px;   display: block;
   margin: 0;
    }
+   .serch_box ul li:hover{ cursor: pointer;
+     }
    .serch_box::-webkit-scrollbar {
     width: 5px;
   }
@@ -1722,7 +1775,7 @@ display: none;
   .serch_box::-webkit-scrollbar-thumb {
     background: #888;
   }
-
+  .popop_pro_img{    width: 100px;}
 
 @media (min-width: 991px) {
 .dp_none{ display: none;}.dp_none1{ display: none;}
@@ -1781,4 +1834,25 @@ section {
 .check-cart {
   padding: 25px 15px 30px;
 }
+.cart-img img {
+  width: 80px;
+}
+.cart-h {
+  margin-left: 15px;
+  width: 100%;font-size: 14px;
+}
+.price-regular {
+  font-size: 20px;
+}
+.cart-h h5 {
+  font-size: 18px;
+}
+.popop_pro_img {
+  width: 70px;
+}
+.footer_bar_item {
+  color: #000;
+  margin-bottom: 20px;
+}
+.ref14{    font-size: 14px;}
 }

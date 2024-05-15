@@ -56,7 +56,7 @@ function Cart() {
                                                 </td>
 
                                                 <td>
-                                                    <div className="tt-price"><span className="money">$ {item.save < 1 ? <span>{item.price}</span> : <span><del><i className="fa fa-rupee"></i>{item.price}</del><i className="fa fa-rupee"></i>{(item.price) - ((item.price * item.save) / 100)}</span>}</span></div>
+                                                    <div className="tt-price"><span className="money">$ {item.save < 1 ? <span>{item.price}</span> : <span>{(item.price) - ((item.price * item.save) / 100)}</span>}</span> <del>${item.price}</del></div>
                                                 </td>
                                                 <td>
                                                     <div className="btn-group quantity-btn" role="group" aria-label="Basic example">

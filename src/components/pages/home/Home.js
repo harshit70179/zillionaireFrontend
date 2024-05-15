@@ -7,6 +7,7 @@ import Explore from './Explore'
 import Testimonial from './Testimonial'
 import { useGetLowerBannerQuery, useGetMiddleBannerQuery, useGetTopBannerQuery } from '../../../redux/bannerApi'
 import { useGetHomeProductQuery } from '../../../redux/headerApi'
+import { Link } from 'react-router-dom'
 
 function Home() {
     const { data: homeProduct } = useGetHomeProductQuery()
@@ -40,7 +41,7 @@ function Home() {
             </section> : ""}
             {middleBanner?.length > 0 && <div className="banners">
                 <div className="container">
-                    <img src={middleBanner[0]?.image} className="img-fluid" alt="" />
+                <Link to={'/all-products'}><img src={middleBanner[0]?.image} className="img-fluid" alt="" /></Link>
                 </div>
             </div>}
 
@@ -58,7 +59,7 @@ function Home() {
                 </div>
             </section> : ""}
             {lowerBanner?.length > 0 && <div className="container mb-md-5">
-                <img src={lowerBanner[0]?.image} className="img-fluid" alt='' />
+                <Link to={'/all-products'}><img src={lowerBanner[0]?.image} className="img-fluid" alt='' /></Link>
             </div>}
             {homeProduct && homeProduct.length > 3 ?
                 homeProduct.slice(4, 7)?.map((list) => {

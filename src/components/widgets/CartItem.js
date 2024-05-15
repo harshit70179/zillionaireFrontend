@@ -32,7 +32,8 @@ function CartItem({ products, totalamount, decrement, increment,authenticated,cl
                                                 </div>
                                             </div>
                                             <div className='price-box'>
-                                                <span className="price-regular"> ${list.price}</span>
+                                                {/* <span className="price-regular"> ${list.price}</span> */}
+                                                <span className="price-regular">${list.save>0?(list.price)-((list.price*list.save)/100):list.price}</span>{list.save>0?<del>${list.price}</del>:""}
                                                 <button   title="Delete" className="tt-trash" onClick={()=>handleRemove(list.id)}>
                             
                                                 <i class="bi bi-x-lg"></i>

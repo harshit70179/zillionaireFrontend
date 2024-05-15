@@ -41,10 +41,12 @@ function Products() {
                             data?.map((list) => {
                                 let image = JSON.parse(list.images)
                                 let price = JSON.parse(list.price)
+                                let discount=price[0]?.save>0?(price[0].price)-((price[0].price*price[0].save)/100):price[0].price
                                 return (
                                     <div className="col-md-4 mb-2" key={list.id}>
                                         <div className="shadow1">
                                             <div className="img_item  heart-img">
+                                            {price[0]?.save>0?<span className='s_offer'>{price[0]?.save}% OFF</span>:""}
                                                 <Link to={`/product-detail/${list.id}`} className=''>
                                                     <img src={image[0]} className="img-fluid" alt="" />
                                                 </Link>
@@ -53,7 +55,7 @@ function Products() {
                                             <div className="product-grid_item p-3 ">
                                                 <span className="product-grid-item__vendor">Ruby &amp; Garnet</span>
                                                 <div className="product-grid-item__title"><a href="detail-page.html">{list.title}</a></div>
-                                                <span className="product_item_price money">${price[0]?.price} USD</span>
+                                                <span className="product_item_price money">${discount} USD {price[0]?.save>0?<del>${price[0]?.price}</del>:""}</span>
                                             </div>
                                         </div>
                                     </div>

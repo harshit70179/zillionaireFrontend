@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Footer from '../widgets/Footer'
 import Header from '../widgets/Header'
 import { Link, useNavigate } from 'react-router-dom'
@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 import { useAuth } from '../../AuthContext'
 
 function Login() {
-  const { login,handleSetWishlist } = useAuth();
+  const { login,handleSetWishlist,authenticated } = useAuth();
   const navigate = useNavigate()
   const [disable, setDisable] = useState(false);
   const [loginField, setLoginField] = useState({
@@ -23,6 +23,14 @@ function Login() {
     eye: "bi-eye-slash",
     type: "password",
   });
+  
+  useEffect(()=>{
+   if(authenticated){
+    navigate("/", { replace: true });
+   }
+  },[authenticated])
+   
+
   const handleShowPassword = () => {
     if (showPassword.type === "password") {
       setShowPassword({ eye: "bi-eye", type: "text" });
@@ -116,7 +124,7 @@ function Login() {
                           <span className='text-danger'>{loginFieldErr.password}</span>
                         </div>
                         <div className="text-end">
-                          <Link to="/" className="forget-pwd tdu">Forget Password?</Link>
+                          <Link to="/forget-password" className="forget-pwd tdu">Forget Password?</Link>
                         </div>
                         <div className="single-input-item mt-3">
                           <button className="btn btn-sqr w100" disabled={disable}>LOGIN</button>

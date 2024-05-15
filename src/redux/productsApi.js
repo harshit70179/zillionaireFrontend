@@ -1,4 +1,4 @@
-import {getProductByIdApi, getProductsApi } from "../components/constant/Api";
+import {getAllProductsApi, getProductByIdApi, getProductsApi } from "../components/constant/Api";
 import { myApi } from "./api";
 
 export const productsApi = myApi.injectEndpoints({
@@ -22,7 +22,16 @@ export const productsApi = myApi.injectEndpoints({
           return response.status ? response?.data ?? [] :[];
         },
       }),
+      getAllProducts: builder.query({
+        query: () => ({
+          url: getAllProductsApi,
+          method: "GET",
+        }),
+        transformResponse: (response, meta, arg) => {
+          return response.status ? response?.data ?? [] :[];
+        },
+      }),  
   }),
 });
 
-export const { useGetProductsMutation,useGetProductsByIdMutation} = productsApi;
+export const { useGetProductsMutation,useGetProductsByIdMutation,useGetAllProductsQuery} = productsApi;
