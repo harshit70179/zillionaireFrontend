@@ -30,7 +30,7 @@ function Cart() {
     return (
         <>
             <Header />
-            <div className="breadcrumb-area bg_light pt-5 pb-5 text-center">
+            <div className="breadcrumb-area bg_light pt-4 pb-1 pt-md-5 pb-md-5 text-center">
                 <div className="container">
                     <h3 className="mb-4">Cart</h3>
                 </div>

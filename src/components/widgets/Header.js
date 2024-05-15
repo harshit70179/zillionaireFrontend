@@ -98,13 +98,31 @@ function Header() {
             </section>
 
             <div className={`mobile_menu ${openMenu}`}>
+            <div className="position-relative overflow-hidden">
                 <div className='text-end pe-3 pt-2' onClick={handleCloseMenu}>
                     <i class="bi bi-x-lg"></i>
                 </div>
                 <Link to="/"><img src="/assets/img/logo.png" alt="" className="img-fluid" /></Link>
-                <div className='p-3 scroll_menu'>
+                <div className='scroll_menu'>
                     <ul className='m-0 p-0'>
-                        <li><a href='#'>Jewelry</a></li>
+                        <li><a className=' m_m collapsed' href='#' data-bs-toggle="collapse" data-bs-target="#Jewelry">Jewelry <i className="ms-auto bi bi-chevron-down"></i></a>
+                        <div id="Jewelry" className="mobile_c_manu collapse">
+                            <a className='ttu' href='#'>Rings <i className="ms-auto bi bi-chevron-right"></i></a>
+                            <a className='ttu' href='#'>Earrings <i className="ms-auto bi bi-chevron-right"></i></a>
+                            <a className='ttu' href='#'>Bracelets <i className="ms-auto bi bi-chevron-right"></i></a>
+                            <a className='ttu' href='#'>Necklaces And Pendants <i className="ms-auto bi bi-chevron-right"></i></a>
+                            <a className='ttu' href='#'>Shop By Gemstones <i className="ms-auto bi bi-chevron-right"></i></a>
+
+                       <div className='mobile_menu2'>
+                        <span className='d-flex bg_light ttu p-2'> <i className="bi bi-chevron-left"></i> <b className='m-auto'>Rings</b></span>
+                        <a className='ttu' href='#'>Xyz </a>
+                        <a className='ttu' href='#'>Xyz </a>
+                        <a className='ttu' href='#'>Xyz </a>
+                        <a className='ttu' href='#'>Xyz </a>
+                        <a className='ttu' href='#'>Xyz </a>
+                       </div>
+                        </div>
+                        </li>
                         <li><a href='#'>Men's Jewelry</a></li>
                         <li><a href='#'>New Collections</a></li>
                         <li><a href='/profile'>Profile</a></li>
@@ -112,6 +130,7 @@ function Header() {
                         <li><a href='/wish-list'>Wish List</a></li>
                         <li><a href='#'>Logout</a></li>
                     </ul>
+                </div>
                 </div>
             </div>
             <header id="header" className="d-lg-flex align-items-center">

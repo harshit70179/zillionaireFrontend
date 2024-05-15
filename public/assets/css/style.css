@@ -1356,20 +1356,33 @@ section {
   top: 10px;
 }
 .mobile_menu li a {
-  padding: 8px;
+  padding: 8px 20px;
   display: block;
-  border-bottom: 1px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;    display: flex;
 }
+.mobile_menu li .m_m i{     transition: 0.5s;       -webkit-transform: rotate(180deg);  transform: rotate(180deg);}
+.mobile_menu li .m_m.collapsed i{        -webkit-transform: rotate(0deg);  transform: rotate(0deg);}
 .mobile_menu li{ display:block;}
 .mobile_menu {
   position: fixed;
   left: -100%;
-  width: 250px;
+  width: 300px;
   top: 0;    transition: 0.5s;
-
   background: #fff;
   z-index: 999;
   height: 100%;
+}
+.mobile_menu2 {
+  position: absolute;
+  right: -100%;
+  width: 100%;
+  top: 0;    transition: 0.5s;
+  background: #fff;
+  z-index: 999;
+  height: 100%;
+}
+.mobile_menu2.active {
+  right: 0;
 }
 .scroll_menu {
   overflow: auto;
@@ -1775,6 +1788,21 @@ display: none;
     background: #888;
   }
   .popop_pro_img{    width: 100px;}
+  #header.header-fix  {
+      position: fixed;
+      top: -100px;
+      left: 0;
+      width: 100%;
+      -webkit-transition: -webkit-transform .5s;
+      transition: -webkit-transform .5s;
+      transition: transform .5s;
+      transition: transform .5s, -webkit-transform .5s;
+      -webkit-transform: translateY(100px);
+      transform: translateY(100px);
+      -webkit-box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.05);
+  }
+  .mobile_c_manu{background: #f7f8f9;}
 
 @media (min-width: 991px) {
 .dp_none{ display: none;}.dp_none1{ display: none;}
