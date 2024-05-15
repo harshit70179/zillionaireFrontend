@@ -128,11 +128,14 @@ function CheckOut() {
                                         <img src="/assets/img/gift.jpg" alt=''/>
                                         <div className='title'>
                                             <h4>Ordering a gift?</h4>
-                                            <p>Get your item in a gift bag</p>
+
+                                            <p className='mb-0'>Get your item in a gift bag</p>
                                         </div>
-                                        <div className='text-end w-50 gift-btn'>
-                                            <button onClick={handleGiftSelect} type='button'>{giftSelect?"Unselect":"Select"}</button>
+                                        <div className='text-end  ms-auto gift-btn'>
+                                            <button className='btn' onClick={handleGiftSelect} type='button'>{giftSelect?"Unselect":"Select"}</button>
+
                                         </div>
+                                      
                                      </div>
                                 </div>
                                 {giftSelect?<div className='col-12 mb-3 mt-3'>

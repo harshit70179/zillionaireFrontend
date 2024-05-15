@@ -73,7 +73,7 @@ function Profile() {
                                 <div><button className='btn btn-prrimary w-100' onClick={() => handleShow()}>Change Password</button></div>
                             </div>
                         </div>
-                        <div className="col-md-8 col-lg-9 ps-md-4">
+                        <div className="col-md-8 col-lg-9 ps-md-4 mt-4 mt-md-0">
                             <h4 className="mb-3">Order History</h4>
                             <div className="table-responsive">
                                 <table className="table table-bordered table-striped">
