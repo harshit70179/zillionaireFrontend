@@ -17,10 +17,14 @@ function Header() {
     const [setWishList] = useSetWishListMutation()
     const [filterProduct, setFilterProduct] = useState([])
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchListShow,setSearchListShow]=useState("")
-    const [showSearch,setShowsearch]=useState("")
-    const [openMenu,setOpenMenu]=useState("")
+    const [searchListShow, setSearchListShow] = useState("")
+    const [showSearch, setShowsearch] = useState("")
+    const [openMenu, setOpenMenu] = useState("")
     const [scrolltopdata, setscrolltopdata] = useState('');
+    const [rightMenu, setRightMenu] = useState(false)
+    const [categoryId,setCategoryId]=useState("")
+    const [subCatgeory,setSubcategory]=useState([])
+    const [categoryName,setcategoryName]=useState("")
     const navigate = useNavigate()
     const logOut = () => {
         localStorage.removeItem("jwtToken")
@@ -46,13 +50,16 @@ function Header() {
     };
 
     useEffect(() => {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY < 15) {
-                setscrolltopdata('');
-            } else {
-                setscrolltopdata('header-fix');
-            }
-        });
+            window.addEventListener('scroll', () => {
+                if (window.scrollY < 15) {
+                    setscrolltopdata('');
+                } else {
+                   
+                    setscrolltopdata('header-fix');
+                  
+                }
+            });
+      
     }, [])
 
     useEffect(() => {
@@ -70,34 +77,44 @@ function Header() {
             )
         );
         setFilterProduct(filtered);
-        if(filtered.length>0){
+        if (filtered.length > 0) {
             setSearchListShow("active")
         }
-        if(query===""){
+        if (query === "") {
             setSearchListShow("")
         }
     };
-    
-    const handleShowSearch=()=>{
+
+    const handleShowSearch = () => {
         setShowsearch("active")
     }
 
-    const handleCloseSearch=()=>{
+    const handleCloseSearch = () => {
         setShowsearch("")
     }
 
-    const handleOpenMenu=()=>{
+    const handleOpenMenu = () => {
         setOpenMenu("active")
     }
 
-    const handleCloseMenu=()=>{
+    const handleCloseMenu = () => {
         setOpenMenu("")
     }
 
-    const handleSearch=(value)=>{
+    const handleSearch = (value) => {
         navigate(`/search/${value}`)
         handleCloseSearch()
         setSearchQuery('')
+    }
+
+    const handleRightMenu = () => {
+        setRightMenu(!rightMenu)
+    }
+
+    const handleSubcategory=(catId,catName,subCat)=>{
+        setCategoryId(catId)
+        setSubcategory(subCat)
+        setcategoryName(catName)
     }
 
     return (
@@ -109,39 +126,47 @@ function Header() {
             </section>
 
             <div className={`mobile_menu ${openMenu}`}>
-            <div className="position-relative overflow-hidden">
-                <div className='text-end pe-3 pt-2' onClick={handleCloseMenu}>
-                    <i class="bi bi-x-lg"></i>
-                </div>
-                <Link to="/"><img src="/assets/img/logo.png" alt="" className="img-fluid" /></Link>
-                <div className='scroll_menu'>
-                    <ul className='m-0 p-0'>
-                        <li><a className=' m_m collapsed' href='#' data-bs-toggle="collapse" data-bs-target="#Jewelry">Jewelry <i className="ms-auto bi bi-chevron-down"></i></a>
-                        <div id="Jewelry" className="mobile_c_manu collapse">
-                            <a className='ttu' href='/'>Rings <i className="ms-auto bi bi-chevron-right"></i></a>
-                            <a className='ttu' href='#'>Earrings <i className="ms-auto bi bi-chevron-right"></i></a>
-                            <a className='ttu' href='#'>Bracelets <i className="ms-auto bi bi-chevron-right"></i></a>
-                            <a className='ttu' href='#'>Necklaces And Pendants <i className="ms-auto bi bi-chevron-right"></i></a>
-                            <a className='ttu' href='#'>Shop By Gemstones <i className="ms-auto bi bi-chevron-right"></i></a>
+                <div className="position-relative overflow-hidden">
+                    <div className='text-end pe-3 pt-2' onClick={handleCloseMenu}>
+                        <i class="bi bi-x-lg"></i>
+                    </div>
+                    <Link to="/"><img src="/assets/img/logo.png" alt="" className="img-fluid" /></Link>
+                    <div className='scroll_menu'>
+                        <ul className='m-0 p-0'>
+                            {data?.map((list) => {
+                                return (
+                                    <li>
+                                        {list?.category.length > 0 ? <a className=' m_m collapsed' href={list?.category.length == 0 ? `/products/${list.id}/${list.main_category_name}` : '#'} data-bs-toggle="collapse" data-bs-target={`#${list.id}`}>{list.main_category_name} <i className="ms-auto bi bi-chevron-down"></i></a> : <a href={`/products/${list.id}/${list.main_category_name}`}>{list.main_category_name}</a>}
 
-                       <div className='mobile_menu2'>
-                        <span className='d-flex bg_light ttu p-2'> <i className="bi bi-chevron-left"></i> <b className='m-auto'>Rings</b></span>
-                        <a className='ttu' href='#'>Xyz </a>
-                        <a className='ttu' href='#'>Xyz </a>
-                        <a className='ttu' href='#'>Xyz </a>
-                        <a className='ttu' href='#'>Xyz </a>
-                        <a className='ttu' href='#'>Xyz </a>
-                       </div>
-                        </div>
-                        </li>
-                        <li><a href='#'>Men's Jewelry</a></li>
-                        <li><a href='#'>New Collections</a></li>
-                        <li><a href='/profile'>Profile</a></li>
-                        <li><a href='/login'>Login</a></li>
-                        <li><a href='/wish-list'>Wish List</a></li>
-                        <li><a href='#'>Logout</a></li>
-                    </ul>
-                </div>
+                                        {list?.category.length > 0 && <div id={list.id} className="mobile_c_manu collapse">
+                                            {list.category.map((categoryList) => {
+                                                return (
+                                                    <>{categoryList?.sub_category.length > 0 ? <a className='ttu' href={categoryList?.sub_category.length > 0 ? "#" : `/products/${list.id}/${categoryList.category_id}/${categoryList.category_name}`} onClick={()=>{
+                                                        handleRightMenu()
+                                                        handleSubcategory(categoryList.category_id,categoryList.category_name,categoryList?.sub_category)
+
+                                                    }}>{categoryList.category_name} {categoryList?.sub_category.length > 0 ? <i className="ms-auto bi bi-chevron-right"></i> : ""}</a> : <a className='ttu' href={categoryList?.sub_category.length > 0 ? "#" : `/products/${list.id}/${categoryList.category_id}/${categoryList.category_name}`}>{categoryList.category_name} {categoryList?.sub_category.length > 0 ? <i className="ms-auto bi bi-chevron-right"></i> : ""}</a>}
+                                                        {categoryList?.sub_category.length > 0 ? <div className={`mobile_menu2 ${rightMenu ? "active" : ""}`}>
+                                                            <span className='d-flex bg_light ttu p-2' onClick={handleRightMenu}> <i className="bi bi-chevron-left"></i> <b className='m-auto'>{categoryName} </b></span>
+                                                            {subCatgeory?.map((subCategoryList) => {
+                                                                return (<a href={`/products/${list.id}/${categoryId}/${subCategoryList.id}/${subCategoryList.name}`}>{subCategoryList.name}</a>)
+                                                            })}
+
+                                                        </div> : ""}
+                                                    </>
+                                                )
+                                            })}
+                                        </div>}
+                                    </li>
+                                )
+                            })}
+                            {authenticated ? <>
+                                <li><a href='/profile'>Profile</a></li>
+                                <li><a href='/wish-list'>Wish List</a></li>
+                                <li><a href='#' onClick={logOut} >Logout</a></li></> : <li><a href='/login'>Login</a></li>}
+
+                        </ul>
+                    </div>
                 </div>
             </div>
             <header id="header" className={`d-lg-flex align-items-center ${scrolltopdata}`}>
@@ -198,16 +223,16 @@ function Header() {
                                     onChange={handleSearchChange} />
                                 <div className={`serch_box ${searchListShow}`}>
                                     <ul className='p-0 m-0'>
-                                        {filterProduct?.map((list)=>{
+                                        {filterProduct?.map((list) => {
                                             return (
-                                                <li key={list.id} onClick={()=>{handleSearch(list.title)}}>{list.title}</li>
+                                                <li key={list.id} onClick={() => { handleSearch(list.title) }}>{list.title}</li>
                                             )
                                         })}
                                     </ul>
                                 </div>
                             </div></div>
                         <div className="header_right_item">
-                            <span className='search-btn'>{showSearch?  <i class="bi bi-x-lg" onClick={handleCloseSearch}></i> :<i className="bi bi-search ifw20" onClick={handleShowSearch}></i>} </span>
+                            <span className='search-btn'>{showSearch ? <i class="bi bi-x-lg" onClick={handleCloseSearch}></i> : <i className="bi bi-search ifw20" onClick={handleShowSearch}></i>} </span>
                         </div>
                         <div className="header_right_item ms-3  mo_none">
                             <Link to="/wish-list"> <i className="bi bi-heart ifw20"></i></Link>

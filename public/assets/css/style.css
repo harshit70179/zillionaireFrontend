@@ -333,6 +333,9 @@ h6 {
   justify-content: space-between;
   margin-top: 20px;
 }
+.verify span:hover{
+  cursor: pointer;
+}
 @media (max-width: 1366px) {
   .navbar .dropdown .dropdown ul {
     left: -90%;

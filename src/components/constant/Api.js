@@ -7,6 +7,7 @@ export const getUserDetailApi="/get-user-detail"
 export const getWishListApi="/get-wish-list"
 export const addWishListApi="/add-wish-list"
 export const forgetPasswordApi=baseUrl+"/forget-password"
+export const userVerificationApi=baseUrl+"/user-verification"
 
 //============= Banner ====================
 export const getTopBannerApi="/get-top-banner"

@@ -20,6 +20,7 @@ import Search from "./components/pages/search/Search";
 import AllProducts from "./components/pages/products/AllProducts";
 import ForgetPassword from "./components/auth/ForgetPassword";
 import ExploreProduct from "./components/pages/products/ExploreProduct";
+import UserVerified from "./components/auth/UserVerified";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
         <Route path="/faq" element={<Faqs/>} />
         <Route path="/checkout" element={<CheckOut/>} />
         <Route path="/cart" element={<Cart/>} />
+        <Route path="/registration-seccessfully/:id" element={<UserVerified/>} />
         </Routes>
       </Router>
       <ToastContainer

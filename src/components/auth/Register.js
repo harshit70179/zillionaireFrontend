@@ -28,7 +28,6 @@ function Register() {
         type: "password",
     });
 
-    
     useEffect(() => {
         if (authenticated) {
             navigate("/", { replace: true });

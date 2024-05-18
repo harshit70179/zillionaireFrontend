@@ -54,7 +54,7 @@ function Footer() {
                                 </form>
                             </div>
                             <p className="mt-3">
-                                <strong>Contact Us </strong> info@example.com
+                                <strong>Contact Us </strong><a href='mailto://uttamsingh16@gmail.com'>uttamsingh16@gmail.com</a> 
                             </p>
                             <div className="social-links mt-4">
                                 {social?.map((list)=>{
