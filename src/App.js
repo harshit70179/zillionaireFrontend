@@ -21,6 +21,8 @@ import AllProducts from "./components/pages/products/AllProducts";
 import ForgetPassword from "./components/auth/ForgetPassword";
 import ExploreProduct from "./components/pages/products/ExploreProduct";
 import UserVerified from "./components/auth/UserVerified";
+import Success from "./components/pages/verify/Success";
+import Cancel from "./components/pages/verify/Cancel";
 
 function App() {
   return (
@@ -49,6 +51,8 @@ function App() {
         <Route path="/checkout" element={<CheckOut/>} />
         <Route path="/cart" element={<Cart/>} />
         <Route path="/registration-seccessfully/:id" element={<UserVerified/>} />
+        <Route path="/success/:order_id" element={<Success/>} />
+        <Route path="/cancel" element={<Cancel/>} />
         </Routes>
       </Router>
       <ToastContainer

@@ -21,3 +21,8 @@ export const showBannerEnum=[{
     key:"Lower",
     value:'3' 
 }]
+
+export const paymentStatus={
+    Verified:"Verified",
+    Pending:'Pending',
+}

@@ -1,4 +1,4 @@
-import { addOrderApi, getOrderApi, getOrderPdfApi } from "../components/constant/Api";
+import { addOrderApi, getOrderApi, getOrderPdfApi, successApi } from "../components/constant/Api";
 import { myApi } from "./api";
 
 export const orderApi = myApi.injectEndpoints({
@@ -31,7 +31,15 @@ export const orderApi = myApi.injectEndpoints({
         },
         providesTags: (_) => ["order"],
       }),
+      setSuccess: builder.mutation({
+        query: (post) => ({
+          url:successApi,
+          method: "POST",
+          body:post
+        }),
+        providesTags: (_) => ["order"],
+      }),
   }),
 });
 
-export const { useSetOrderMutation,useGetOrderQuery,useGetOrderPdfMutation} = orderApi;
+export const { useSetOrderMutation,useGetOrderQuery,useGetOrderPdfMutation,useSetSuccessMutation} = orderApi;

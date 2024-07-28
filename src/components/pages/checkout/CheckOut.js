@@ -70,12 +70,13 @@ function CheckOut() {
         }
         setOrder(data).then((result) => {
             if (result.data.status) {
-                toast.dismiss();
-                toast.success(result.data.message);
                 dispatch(removeAll())
-                setTimeout(() => {
-                    navigate("/profile", { replace: true })
-                }, 2000);
+                window.location.href=result.data.data
+                // toast.dismiss();
+                // toast.success(result.data.message);
+                // setTimeout(() => {
+                //     navigate("/profile", { replace: true })
+                // }, 2000);
             }
             else {
                 toast.dismiss();

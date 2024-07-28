@@ -4,12 +4,17 @@ import Footer from '../../widgets/Footer'
 import { useGetUserDetailQuery } from '../../../redux/userApi'
 import { useAuth } from '../../../AuthContext'
 import { useNavigate } from 'react-router-dom'
-import { useGetOrderQuery } from '../../../redux/orderApi'
+import { useGetOrderQuery, useSetOrderMutation } from '../../../redux/orderApi'
 import ChangePasswordModal from '../../partials/ChangePasswordModal'
 import OrderViewModal from '../../partials/OrderViewModal'
+import { paymentStatus } from '../../constant/enum'
+import { toast } from 'react-toastify'
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 function Profile() {
     const navigate = useNavigate()
+    const [setOrder] = useSetOrderMutation()
     const { authenticated } = useAuth();
     const { data } = useGetUserDetailQuery()
     const { data: orderHistory } = useGetOrderQuery()
@@ -18,6 +23,7 @@ function Profile() {
     const [itemsPerPage] = useState(10)
     const [currectRecord,setCurrectRecord]=useState({})
     const [showOrder,setShowOrder]=useState(false)
+    const [disable, setDisable] = useState(false)
 
     useEffect(() => {
         if (!authenticated) {
@@ -52,6 +58,39 @@ function Profile() {
         setCurrectRecord(record)
         setShowOrder(true)
     }
+   
+    const handlePayment=(list)=>{
+        setDisable(true)
+        const data={
+            orderId:list.id,
+            grand_total: list.grand_total,
+        }
+        setOrder(data).then((result) => {
+            if (result.data.status) {
+                window.location.href=result.data.data
+            }
+            else {
+                setDisable(false)
+                toast.dismiss();
+                toast.error(result.data.message);
+            }
+        })
+    }
+    const alertPayment = (list) => {
+        confirmAlert({
+          title: "Confirm to submit",
+          message: "Are you sure to do this.",
+          buttons: [
+            {
+              label: "Yes",
+              onClick: () => handlePayment(list),
+            },
+            {
+              label: "No",
+            },
+          ],
+        });
+      };
 
     return (
         <>
@@ -85,7 +124,8 @@ function Profile() {
                                             <th>Email</th>
                                             <th>Subtotal</th>
                                             <th>Total</th>
-                                            <th>Status</th>
+                                            <th>Order Status</th>
+                                            <th>Payment Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -102,9 +142,12 @@ function Profile() {
                                                         <td>{list.total}</td>
                                                         <td>{list.grand_total}</td>
                                                         <td>{list.status}</td>
-                                                        <td><button className='btn btn-primary' onClick={()=>{
+                                                        <td>{list.payment_status}</td>
+                                                        {list.payment_status==paymentStatus.Pending?<td><button className='btn btn-primary' disabled={disable} onClick={()=>{
+                    alertPayment(list)
+                }}>Pay Now</button></td>:<td><button className='btn btn-primary' onClick={()=>{
                     handleShowOrder(list)
-                }}>View</button></td>
+                }}>View</button></td>}
                                                     </tr>
                                                 )
                                             })

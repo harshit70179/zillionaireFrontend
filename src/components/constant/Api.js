@@ -34,6 +34,7 @@ export const getFooterCollectionApi="/footer-collection"
 export const addOrderApi="/add-order"
 export const getOrderApi="/get-order"
 export const getOrderPdfApi="/get-pdf"
+export const successApi='/success'
 
 //======================= Social media =============
 export const getSocialMediaApi="/get-social-media"
